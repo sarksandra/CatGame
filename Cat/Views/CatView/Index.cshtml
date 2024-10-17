@@ -1,0 +1,35 @@
+﻿@model IEnumerble<CatGame.Models.Cat.CatIndexViewModel>
+
+    @{int rowNumber = 1; }
+    <div><a asp-action="Add" asp-controller="Cats" type="submit" class="btn btn-primary">Go get your Cat</a></div>
+    @**@
+
+    <div class="h1">Your Cats:</div>
+    <form method="post">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scorpe="col">#</th>
+                    <th scorpe="col">Name</th>
+                    <th scorpe="col">Cat Type</th>
+                    <th scorpe="col">Food Type</th>
+                    <th scorpe="col">level</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach(var cat in Model)
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td>@cat.CatName</td>
+                    <td>@cat.CatType</td>
+                    <td>@cat.FoodType</td>
+                    <td>@cat.level</td>
+                    
+                </tr>
+                rowNumber++
+            }
+
+            </tbody>
+        </table>
+    </form>
