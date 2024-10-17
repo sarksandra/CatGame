@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using CatGame.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

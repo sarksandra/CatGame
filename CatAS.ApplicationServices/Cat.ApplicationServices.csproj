@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CatCore.Core\Cat.Core.csproj" />
+    <ProjectReference Include="..\CatData.Data\Cat.Data.csproj" />
+  </ItemGroup>
+
 </Project>

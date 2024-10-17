@@ -14,7 +14,7 @@ namespace CatGame.Core.Domain
     {
         Cake, Brownie, Muffin, Cookie, Candy, Chocolate, Waffle, IceCreame, Jelly, Pancake, Lollipop
     }
-    public class CatIndexViewModel
+    public class CatDM
     {
         public Guid Id { get; set; }
         public string CatName { get; set; }
@@ -22,7 +22,7 @@ namespace CatGame.Core.Domain
         public int CatFoodXP { get; set; }
         public int CatFoodXPNextLevel { get; set; }
         public int CatLevel { get; set; }
-        public CatType CatType { get; }
+        public CatType CatType { get; set; }
         public CatFoodType CatFoodType { get; set; }
 
     }
