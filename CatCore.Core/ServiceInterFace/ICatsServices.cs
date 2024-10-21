@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CatGame.Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Cat.Core.ServiceInterFace
 {
     public interface ICatsServices
     {
-        Task<Cat> DetailsAsync(int id);
-        Task<Cat> DetailsAsync(Guid id);
+    
+        Task<CatDM> DetailsAsync(Guid id);
     }
 }

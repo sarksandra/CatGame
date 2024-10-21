@@ -1,4 +1,4 @@
-﻿@model IEnumerble<CatGame.Models.Cat.CatIndexViewModel>
+﻿@model IEnumerable<CatGame.Models.Cat.CatIndexViewModel>
 
     @{int rowNumber = 1; }
     <div><a asp-action="Add" asp-controller="Cats" type="submit" class="btn btn-primary">Go get your Cat</a></div>
@@ -23,11 +23,11 @@
                     <td>@rowNumber</td>
                     <td>@cat.CatName</td>
                     <td>@cat.CatType</td>
-                    <td>@cat.FoodType</td>
-                    <td>@cat.level</td>
+                    <td>@cat.CatFood</td>
+                    <td>@cat.CatLevel</td>
                     
                 </tr>
-                rowNumber++
+                rowNumber++;
             }
 
             </tbody>

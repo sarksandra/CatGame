@@ -1,4 +1,5 @@
 ﻿using Cat.Core.ServiceInterFace;
+using CatGame.Core.Domain;
 using CatGame.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +23,7 @@ namespace Cat.ApplicationServices.Service
         }
         public async Task<CatDM> DetailsAsync(Guid id)
         {
-            var result = await _context.Cats
+            var result = await _context.CatDMs
                 .FirstOrDefaultAsync(x => x.Id == id);
             return result ;
         }

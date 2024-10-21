@@ -23,7 +23,6 @@ namespace CatGame.Controllers
                 {
                     Id = x.Id,
                     CatName = x.CatName,
-                    CatType = x.CatType,
                     CatLevel = x.CatLevel,
                     CatFood = x.CatFood,
 

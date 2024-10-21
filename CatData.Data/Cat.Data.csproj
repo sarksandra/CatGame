@@ -21,4 +21,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CatCore.Core\Cat.Core.csproj" />
+  </ItemGroup>
+
 </Project>

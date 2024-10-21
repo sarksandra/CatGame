@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CatAS.ApplicationServices\Cat.ApplicationServices.csproj" />
     <ProjectReference Include="..\CatCore.Core\Cat.Core.csproj" />
     <ProjectReference Include="..\CatData.Data\Cat.Data.csproj" />
   </ItemGroup>
