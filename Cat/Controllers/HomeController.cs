@@ -1,8 +1,8 @@
-using CatGame.Models;
+using Cat.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CatGame.Controllers
+namespace Cat.Controllers
 {
     public class HomeController : Controller
     {

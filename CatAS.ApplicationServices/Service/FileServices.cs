@@ -1,7 +1,6 @@
 ﻿using Cat.Core.Domain;
 using Cat.Core.Dto;
 using Cat.Core.ServiceInterFace;
-using CatGame.Core.Domain;
 using CatGame.Data;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -15,17 +14,17 @@ namespace Cat.ApplicationServices.Service
     public class FileServices : IFileServices
     {
         private readonly IHostEnvironment _webHost;
-        private readonly CatContext _context;
+        private readonly CatGameContext _context;
         public FileServices
        (
             IHostEnvironment webHost,
-            CatContext context
+            CatGameContext context
        )
         {
             _webHost = webHost;
             _context = context;
         }
-        public void UploadFilesToDatabase(CatDto dto, CatDM domain)
+        public void UploadFilesToDatabase(CatDto dto, Kittys domain)
         {
             if (dto.Files != null && dto.Files.Count > 0)
             {

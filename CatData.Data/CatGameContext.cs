@@ -1,5 +1,4 @@
 ﻿using Cat.Core.Domain;
-using CatGame.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CatGame.Data
 {
-    public class CatContext: DbContext
+    public class CatGameContext: DbContext
     {
 
-        public CatContext(DbContextOptions<CatContext> options): base(options) { }
-        public DbSet<CatDM> CatDMs { get; set; }
+        public CatGameContext(DbContextOptions<CatGameContext> options): base(options) { }
+        public DbSet<Kittys> CatDMs { get; set; }
         public DbSet<FileToDatabase> FilesToDatabase { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace CatGame.Models
+namespace Cat.Models
 {
     public class ErrorViewModel
     {

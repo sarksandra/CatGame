@@ -1,16 +1,17 @@
 ﻿using Cat.Core.ServiceInterFace;
+using Cat.Models.Kitty;
 using CatGame.Data;
-using CatGame.Models.Cat;
+
 using Microsoft.AspNetCore.Mvc;
 
-namespace CatGame.Controllers
+namespace Cat.Controllers
 {
-    public class CatController : Controller
+    public class KittyController : Controller
     {
 
-        private readonly CatContext _context;
+        private readonly CatGameContext _context;
         private readonly ICatsServices _catsServices;
-        public CatController(CatContext context, ICatsServices catsServices)
+        public KittyController(CatGameContext context, ICatsServices catsServices)
         {
             _context = context;
             _catsServices = catsServices;
@@ -19,7 +20,7 @@ namespace CatGame.Controllers
         {
             var reusltingInventory = _context.CatDMs
                 .OrderByDescending(y => y.CatLevel)
-                .Select(x => new CatIndexViewModel
+                .Select(x => new KittyIndexViewModel
                 {
                     Id = x.Id,
                     CatName = x.CatName,
@@ -28,7 +29,7 @@ namespace CatGame.Controllers
 
 
                 });
-            return View();
+            return View(reusltingInventory);
         }
     }
 }

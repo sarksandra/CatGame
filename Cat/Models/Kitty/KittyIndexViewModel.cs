@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CatGame.Models.Cat
+namespace Cat.Models.Kitty
 {
     public enum CatType
     {
@@ -10,7 +10,7 @@ namespace CatGame.Models.Cat
     {
         Cake, Brownie, Muffin, Cookie, Candy, Chocolate, Waffle, IceCreame, Jelly, Pancake, Lollipop
     }
-    public class CatIndexViewModel
+    public class KittyIndexViewModel
     {
         public Guid Id { get; set; }
         public string CatName { get; set; }
@@ -21,5 +21,7 @@ namespace CatGame.Models.Cat
         public CatType CatType { get; set; }
         public CatFoodType CatFoodType { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

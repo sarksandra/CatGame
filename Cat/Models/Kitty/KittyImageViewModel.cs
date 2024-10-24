@@ -1,6 +1,6 @@
-﻿namespace Cat.Models.Cat
+﻿namespace Cat.Models.Kitty
 {
-    public class CatImageViewModel
+    public class KittyImageViewModel
     {
         public Guid ImageID { get; set; }
         public string ImageTitle { get; set; }

@@ -9,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<ICatsServices, CatsServices>();
+builder.Services.AddScoped<ICatsServices, KittyServices>();
 
-builder.Services.AddDbContext<CatContext>(
+builder.Services.AddDbContext<CatGameContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 

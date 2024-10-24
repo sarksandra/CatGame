@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CatGame.Core.Domain
+namespace Cat.Core.Domain
 {
     public enum CatType
     {
@@ -14,7 +14,7 @@ namespace CatGame.Core.Domain
     {
         Cake, Brownie, Muffin, Cookie, Candy, Chocolate, Waffle, IceCreame, Jelly, Pancake, Lollipop
     }
-    public class CatDM
+    public class Kittys
     {
         public Guid Id { get; set; }
         public string CatName { get; set; }
@@ -25,5 +25,7 @@ namespace CatGame.Core.Domain
         public CatType CatType { get; set; }
         public CatFoodType CatFoodType { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

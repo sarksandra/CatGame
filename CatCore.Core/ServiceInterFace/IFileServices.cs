@@ -1,5 +1,6 @@
-﻿using Cat.Core.Dto;
-using CatGame.Core.Domain;
+﻿using Cat.Core.Domain;
+using Cat.Core.Dto;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Cat.Core.ServiceInterFace
 {
     public interface IFileServices
     {
-        void UploadFilesToDatabase(CatDto dto, CatDM domino);
+        void UploadFilesToDatabase(CatDto dto, Kittys domino);
     }
 }
