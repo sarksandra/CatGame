@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Cat.Models.Kitty.KittyIndexViewModel>
 
     @{int rowNumber = 1; }
-    <div><a asp-action="Add" asp-controller="Cats" type="submit" class="btn btn-primary">Go get your Cat</a></div>
+    <div><a asp-action="Add" asp-controller="Kitty" type="submit" class="btn btn-primary">Go get your Cat</a></div>
+    <div><a asp-action="Create" asp-controller="Kitty" type="submit" class="btn btn-primary">Create</a></div>
     @**@
 
     <div class="h1">Your Cats:</div>

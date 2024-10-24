@@ -31,5 +31,11 @@ namespace Cat.Controllers
                 });
             return View(reusltingInventory);
         }
+        [HttpPost] 
+        public IActionResult Create() 
+        {
+            KittyCreateViewModel vm = new();
+            return View("Create", vm);
+        }
     }
 }
