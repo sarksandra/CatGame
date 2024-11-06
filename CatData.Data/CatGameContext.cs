@@ -13,7 +13,7 @@ namespace CatGame.Data
     {
 
         public CatGameContext(DbContextOptions<CatGameContext> options): base(options) { }
-        public DbSet<Kittys> CatDMs { get; set; }
+        public DbSet<Kittys> Kittys { get; set; }
         public DbSet<FileToDatabase> FilesToDatabase { get; set; }
     }
 }

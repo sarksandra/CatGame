@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Cat.Models.Kitty.KittyIndexViewModel>
 
+
     @{int rowNumber = 1; }
     <div><a asp-action="Add" asp-controller="Kitty" type="submit" class="btn btn-primary">Go get your Cat</a></div>
     <div><a asp-action="Create" asp-controller="Kitty" type="submit" class="btn btn-primary">Create</a></div>
@@ -15,6 +16,7 @@
                     <th scorpe="col">Cat Type</th>
                     <th scorpe="col">Food Type</th>
                     <th scorpe="col">level</th>
+                    <th scorpe="col">Picture</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +28,9 @@
                     <td>@cat.CatType</td>
                     <td>@cat.CatFood</td>
                     <td>@cat.CatLevel</td>
+                   
+          
+                       
                     
                 </tr>
                 rowNumber++;

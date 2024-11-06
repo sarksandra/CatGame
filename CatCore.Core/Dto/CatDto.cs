@@ -26,9 +26,14 @@ namespace Cat.Core.Dto
             public CatType CatType { get; set; }
             public CatFoodType CatFoodType { get; set; }
             public List<IFormFile> Files {get ; set ;}
-           
-            public IEnumerable<FileToDatabaseDto> Image {get; set;} = new List<FileToDatabaseDto>();
-        }
+            public DateTime CreatedAt { get; set; }
+            public DateTime UpdatedAt { get; set; }
+
+
+
+        public IEnumerable<FileToDatabaseDto> Image {get; set;} = new List<FileToDatabaseDto>();
+        public DateTime UpdateAt { get; set; }
+    }
         
 
     
