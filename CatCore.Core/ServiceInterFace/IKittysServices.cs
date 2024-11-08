@@ -11,7 +11,7 @@ namespace Cat.Core.ServiceInterFace
 {
     public interface IKittysServices
     {
-        Task<Kittys> Create(CatDto dto);
+        Task<Kittys> Create(KittyDto dto);
         Task<Kittys> DetailsAsync(Guid id);
     }
 }

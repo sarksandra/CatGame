@@ -14,17 +14,17 @@ namespace Cat.ApplicationServices.Service
     public class FileServices : IFileServices
     {
         private readonly IHostEnvironment _webHost;
-        private readonly CatGameContext _context;
+        private readonly KittyGameContext _context;
         public FileServices
        (
             IHostEnvironment webHost,
-            CatGameContext context
+            KittyGameContext context
        )
         {
             _webHost = webHost;
             _context = context;
         }
-        public void UploadFilesToDatabase(CatDto dto, Kittys domain)
+        public void UploadFilesToDatabase(KittyDto dto, Kittys domain)
         {
             if (dto.Files != null && dto.Files.Count > 0)
             {

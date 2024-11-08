@@ -15,7 +15,7 @@ namespace Cat.Core.Dto
         {
             Cake, Brownie, Muffin, Cookie, Candy, Chocolate, Waffle, IceCreame, Jelly, Pancake, Lollipop
         }
-        public class CatDto
+        public class KittyDto
         {
             public Guid Id { get; set; }
             public string CatName { get; set; }

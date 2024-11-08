@@ -14,10 +14,10 @@ namespace Cat.ApplicationServices.Service
 {
     public class KittyServices : IKittysServices
     {
-        private readonly CatGameContext _context;
+        private readonly KittyGameContext _context;
         private readonly IFileServices _fileServices;
 
-        public KittyServices(CatGameContext context, IFileServices fileServices )
+        public KittyServices(KittyGameContext context, IFileServices fileServices )
         {
             _context = context;
             _fileServices = fileServices;
@@ -33,7 +33,7 @@ namespace Cat.ApplicationServices.Service
         {
             throw new NotImplementedException();
         }
-        public async Task<Kittys> Create(CatDto dto)
+        public async Task<Kittys> Create(KittyDto dto)
         {
             Kittys kittys = new Kittys();
             kittys.Id = Guid.NewGuid();

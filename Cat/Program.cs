@@ -13,7 +13,7 @@ builder.Services.AddScoped<IKittysServices, KittyServices>();
 builder.Services.AddScoped<IFileServices, FileServices>();
 
 
-builder.Services.AddDbContext<CatGameContext>(
+builder.Services.AddDbContext<KittyGameContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 

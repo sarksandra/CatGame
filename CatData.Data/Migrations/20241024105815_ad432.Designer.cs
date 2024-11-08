@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cat.Data.Migrations
 {
-    [DbContext(typeof(CatGameContext))]
+    [DbContext(typeof(KittyGameContext))]
     [Migration("20241024105815_ad432")]
     partial class ad432
     {

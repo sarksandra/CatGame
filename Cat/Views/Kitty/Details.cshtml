@@ -1,0 +1,44 @@
+﻿@model Cat.Models.Kitty.KittyDetailsViewModel
+
+
+<h1>@Html.DisplayFor(model => model.CatName)</h1>
+
+<div>
+    <h4> My, Lord, thyne Titan, be in a state of flux;</h4>
+    <hr />
+    <dl class="row">
+        <div class="form-group row">
+            <label asp-for="Id" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Id)
+        </div>
+        @foreach(var image in Model.Image)
+        {
+            <partial name="_Images" model="image" />
+        }
+        <div class="form-group row">
+            <label asp-for="CatName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatName)
+        </div>
+        <div class="form-group row">
+            <label asp-for="CatLevel" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatLevel)
+        </div>
+        @* todo: combine titanxp AND TT LEVEL INTO ON PROGRAM BAR*@
+        <div class="form-group row">
+            <label asp-for="CatName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatLevel)
+        </div>
+        <div class="form-group row">
+            <label asp-for="CatFoodXP" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatFoodXP)
+        </div>
+        @*Display type with image instead*@
+        <div class="form-group row">
+            <label asp-for="CatFoodXPNextLevel" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatFoodXPNextLevel)
+        </div>
+       
+
+    </dl>
+    <a asp-action="Index" asp-controller="Kitty" class="btn btn-secondary">Index</a>
+</div>

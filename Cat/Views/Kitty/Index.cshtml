@@ -2,8 +2,10 @@
 
 
     @{int rowNumber = 1; }
-    <div><a asp-action="Add" asp-controller="Kitty" type="submit" class="btn btn-primary">Go get your Cat</a></div>
-    <div><a asp-action="Create" asp-controller="Kitty" type="submit" class="btn btn-primary">Create</a></div>
+    <div>
+        <a asp-action="Add" asp-controller="Kitty" type="submit" class="btn btn-primary">Go get your Cat</a>
+        <a asp-action="Create" asp-controller="Kitty" type="submit" class="btn btn-primary">Create</a>
+    </div>
     @**@
 
     <div class="h1">Your Cats:</div>
@@ -26,8 +28,11 @@
                     <td>@rowNumber</td>
                     <td>@cat.CatName</td>
                     <td>@cat.CatType</td>
-                    <td>@cat.CatFood</td>
+                    <td>@cat.CatFoodType</td>
                     <td>@cat.CatLevel</td>
+                    <td>
+                        <a asp-action="details" asp-controller="Kitty" asp-route-id="@cat.Id" class="btn btn-info">CatDetails</a>
+                    </td>
                    
           
                        

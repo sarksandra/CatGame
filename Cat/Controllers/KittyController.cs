@@ -4,6 +4,7 @@ using Cat.Models.Kitty;
 using CatGame.Data;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Cat.Controllers
@@ -11,9 +12,9 @@ namespace Cat.Controllers
     public class KittyController : Controller
     {
 
-        private readonly CatGameContext _context;
+        private readonly KittyGameContext _context;
         private readonly IKittysServices _catsServices;
-        public KittyController(CatGameContext context, IKittysServices catsServices)
+        public KittyController(KittyGameContext context, IKittysServices catsServices)
         {
             _context = context;
             _catsServices = catsServices;
@@ -42,7 +43,7 @@ namespace Cat.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(KittyCreateViewModel vm)
         {
-            var dto = new CatDto()
+            var dto = new KittyDto()
             {
                 CatName = vm.CatName,
                 CatFoodXP = 0,
@@ -66,12 +67,46 @@ namespace Cat.Controllers
 
             };
             var result = await _catsServices.Create(dto);
-            if(result != null)
+            if(result == null)
             {
                 return RedirectToAction("Index");
 
             }
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Details(Guid id /*, Guid ref*/)
+        {
+            var kitty = await _catsServices.DetailsAsync(id);
+            if(kitty == null)
+            { 
+                return NotFound(); // TODO, cutom partial view with message,titan is not located
+            }
+            var images = await _context.FilesToDatabase
+                .Where(k => k.CatID == id)
+                .Select(y => new KittyImageViewModel
+                {
+                    CatID = y.Id,
+                    ImageID = y.Id,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64, {0}", Convert.ToBase64String(y.ImageData))
+
+                }).ToArrayAsync();
+
+            var vm = new KittyDetailsViewModel();
+            vm.Id = kitty.Id;
+            vm.CatName = kitty.CatName;
+            vm.CatType = (Models.Kitty.CatType)kitty.CatType;
+            vm.CatLevel = kitty.CatLevel;
+            vm.CatFoodType = (Models.Kitty.CatFoodType)kitty.CatFoodType;
+            vm.CatFoodXPNextLevel = kitty.CatFoodXPNextLevel;
+            vm.Image.AddRange(images);
+
+            return View(vm);
+
+
+
+             
         }
     }
 }

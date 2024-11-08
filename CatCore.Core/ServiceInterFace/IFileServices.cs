@@ -11,6 +11,6 @@ namespace Cat.Core.ServiceInterFace
 {
     public interface IFileServices
     {
-        void UploadFilesToDatabase(CatDto dto, Kittys domino);
+        void UploadFilesToDatabase(KittyDto dto, Kittys domino);
     }
 }
