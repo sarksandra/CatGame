@@ -6,6 +6,7 @@ using CatGame.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Cat.Controllers
 {
@@ -107,6 +108,81 @@ namespace Cat.Controllers
 
 
              
+        }
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            
+            var kitty = await _catsServices.DetailsAsync(id);
+            if (kitty == null)
+            {
+                return NotFound();
+            }
+            var images = await _context.FilesToDatabase
+                .Where(x => x.CatID == id)
+                .Select(y => new KittyImageViewModel
+                {
+                    CatID = y.Id,
+                    ImageID = y.Id,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64, {0}", Convert.ToBase64String(y.ImageData))
+
+                }).ToArrayAsync();
+
+            var vm = new KittyCreateViewModel();
+            vm.Id = kitty.Id;
+            vm.CatName = kitty.CatName;
+            vm.CatType = (Models.Kitty.CatType)kitty.CatType;
+            vm.CatLevel = kitty.CatLevel;
+            vm.CatFoodType = (Models.Kitty.CatFoodType)kitty.CatFoodType;
+            vm.CatFoodXPNextLevel = kitty.CatFoodXPNextLevel;
+            vm.CreatedAt = kitty.CreatedAt;
+            vm.UpdatedAt = DateTime.Now;
+            vm.Image.AddRange(images);
+
+            return View("Update", vm);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Updated(KittyCreateViewModel vm)
+        {
+            var dto = new KittyDto()
+            {
+                Id = vm.Id,
+                CatName = vm.CatName,
+                CatFoodXP = 0,
+                CatFoodXPNextLevel = 100,
+                CatLevel = 0,
+                CatFoodType = (Core.Dto.CatFoodType)vm.CatFoodType,
+                CatType = (Core.Dto.CatType)vm.CatType,
+                CatFood = vm.CatFood,
+                CreatedAt = DateTime.Now,
+                UpdateAt = DateTime.Now,
+                Files = vm.Files,
+                Image = vm.Image
+                .Select(x => new FileToDatabaseDto
+                {
+                    Id = x.ImageID,
+                    ImageTitle = x.ImageTitle,
+                    ImageData = x.ImageData,
+                    CatID = x.CatID,
+
+                }).ToArray()
+
+            };
+            var result = await _catsServices.Update(dto); 
+            if(result = null)
+            {
+                return RedirectToAction("Index");
+
+            }
+            return RedirectToAction("Index");
+
         }
     }
 }

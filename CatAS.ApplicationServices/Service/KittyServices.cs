@@ -55,7 +55,17 @@ namespace Cat.ApplicationServices.Service
             }
             await _context.Kittys.AddAsync(kittys);
             await _context.SaveChangesAsync();
+
             return kittys;
+        }
+
+        public Task Update(KittyDto dto)
+        {
+            if(dto.Files != null)
+            {
+                _fileServices.UploadFilesToDatabase(dto, kitty);
+            }
+           
         }
     }
 }
