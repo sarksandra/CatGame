@@ -3,6 +3,7 @@ using Cat.Core.Dto;
 using Cat.Core.ServiceInterFace;
 using CatGame.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace Cat.ApplicationServices.Service
         {
             Kittys kittys = new Kittys();
             kittys.Id = Guid.NewGuid();
+            kittys.CatName = dto.CatName;
             kittys.CatFoodXP = 0;
             kittys.CatLevel = 0;
             kittys.CatFoodXPNextLevel = 0;
@@ -55,17 +57,52 @@ namespace Cat.ApplicationServices.Service
             }
             await _context.Kittys.AddAsync(kittys);
             await _context.SaveChangesAsync();
-
             return kittys;
         }
 
-        public Task Update(KittyDto dto)
+        public async Task<Kittys> Update(KittyDto dto)
         {
-            if(dto.Files != null)
+            Kittys kittys = new Kittys();
+
+            // set by service
+            kittys.Id = dto.Id;
+            kittys.CatFoodXPNextLevel = dto.CatFoodXPNextLevel;
+            kittys.CatFoodXP = dto.CatFoodXP;
+            kittys.CatLevel = dto.CatLevel;
+
+
+            //set by user
+            kittys.CatName = dto.CatName;
+            kittys.CatType = (Core.Domain.CatType)dto.CatType;
+            kittys.CatFoodType = (Core.Domain.CatFoodType)dto.CatFoodType;
+
+
+            //set for db
+            kittys.CreatedAt = dto.CreatedAt;
+            kittys.UpdatedAt = DateTime.Now;
+
+            //files
+            if (dto.Files != null)
             {
-                _fileServices.UploadFilesToDatabase(dto, kitty);
+                _fileServices.UploadFilesToDatabase(dto, kittys);
             }
-           
+            _context.Kittys.Update(kittys);
+            await _context.SaveChangesAsync();
+            
+            return kittys;
         }
+        public async Task<Kittys> Delete(Guid id)
+        {
+            var result = await _context.Kittys
+                .FirstOrDefaultAsync(x => x.Id == id);
+            _context.Kittys.Remove(result);
+            await _context.SaveChangesAsync();
+
+            return result;
+        }
+
+       
     }
 }
+    
+

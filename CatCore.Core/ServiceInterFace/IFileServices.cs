@@ -12,5 +12,6 @@ namespace Cat.Core.ServiceInterFace
     public interface IFileServices
     {
         void UploadFilesToDatabase(KittyDto dto, Kittys domino);
+        Task<FileToDatabase> removeImageFromDatabase()
     }
 }

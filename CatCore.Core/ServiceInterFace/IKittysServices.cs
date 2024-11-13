@@ -13,6 +13,7 @@ namespace Cat.Core.ServiceInterFace
     {
         Task<Kittys> Create(KittyDto dto);
         Task<Kittys> DetailsAsync(Guid id);
-        Task Update(KittyDto dto);
+        Task<Kittys> Update(KittyDto dto);
+        Task<Kittys> Delete(Guid id);
     }
 }

@@ -19,7 +19,6 @@ namespace Cat.Core.Dto
         {
             public Guid Id { get; set; }
             public string CatName { get; set; }
-            public string CatFood { get; set; }
             public int CatFoodXP { get; set; }
             public int CatFoodXPNextLevel { get; set; }
             public int CatLevel { get; set; }

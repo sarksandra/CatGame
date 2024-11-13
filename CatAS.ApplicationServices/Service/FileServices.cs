@@ -2,6 +2,7 @@
 using Cat.Core.Dto;
 using Cat.Core.ServiceInterFace;
 using CatGame.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,20 @@ namespace Cat.ApplicationServices.Service
                     }
                 }
             }
+        }
+        public async Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabase dto)
+        {
+            var imageID = await _context.FilesToDatabase
+                .FirstOrDefaultAsync(x => x.Id == dto.Id);
+            var filePath = _webHost.ContentRootPath + "\\ multipleFileUpload\\" + imageID.ExistingFilePath;
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+
+            }
+            _context.FilesToDatabase.Remove(imageID);
+            await _context.SaveChangesAsync();
+            return null;
         }
     }
    
