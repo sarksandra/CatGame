@@ -1,10 +1,10 @@
-﻿@model Cat.Models.Kitty.KittyDetailsViewModel
+﻿@model Cat.Models.Kitty.KittyDeleteViewModel
 
 
 <h1>@Html.DisplayFor(model => model.CatName)</h1>
 
 <div>
-    <h4> My, Lord, thyne Titan, be in a state of flux;</h4>
+    <h4> Bye Bye kitty</h4>
     <hr />
     <dl class="row">
         <div class="form-group row">
@@ -20,18 +20,24 @@
             @Html.DisplayFor(model => model.CatName)
         </div>
         <div class="form-group row">
-            <label asp-for="CatLevel" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.CatLevel)
+            <label asp-for="CatType" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatType)
         </div>
+
         @* todo: combine titanxp AND TT LEVEL INTO ON PROGRAM BAR*@
         <div class="form-group row">
-            <label asp-for="CatName" class="col-sm-2 col-form-label"></label>
+            <label asp-for="CatFoodType" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatFoodType)
+        </div>
+        <div class="form-group row">
+            <label asp-for="CatLevel" class="col-sm-2 col-form-label"></label>
             @Html.DisplayFor(model => model.CatLevel)
         </div>
         <div class="form-group row">
             <label asp-for="CatFoodXP" class="col-sm-2 col-form-label"></label>
             @Html.DisplayFor(model => model.CatFoodXP)
         </div>
+
         @*Display type with image instead*@
         <div class="form-group row">
             <label asp-for="CatFoodXPNextLevel" class="col-sm-2 col-form-label"></label>
@@ -43,7 +49,7 @@
     <form asp-action="DeleteConfirmation">
         <input type="hidden" asp-for="Id" />
         <input type="submit" />
-        <a asp-action="Index" asp-controller="Kitty" class="btn btn-secondary">Index</a>
+        <a asp-action="Index" asp-controller="Kitty" class="btn btn-secondary">Back</a>
 
     </form>
    

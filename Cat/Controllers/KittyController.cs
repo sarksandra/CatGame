@@ -151,13 +151,9 @@ namespace Cat.Controllers
 
         }
 
-        public IKittysServices Get_catsServices()
-        {
-            return _catsServices;
-        }
 
-        [HttpGet]
-        public async Task<IActionResult> Update(KittyCreateViewModel vm, IKittysServices _catsServices)
+        [HttpPost]
+        public async Task<IActionResult> Update(KittyCreateViewModel vm)
         {
             var dto = new KittyDto()
             {
@@ -207,7 +203,7 @@ namespace Cat.Controllers
                     ImageID = y.Id,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
-                    Image = string.Format("data:image/hif;base64,{0}", Convert.ToBase64String(y.ImageData))
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
 
                 }).ToArrayAsync();
             var vm = new KittyDeleteViewModel();
@@ -218,6 +214,8 @@ namespace Cat.Controllers
             vm.CatLevel = kitty.CatLevel;
             vm.CatFoodType = (Models.Kitty.CatFoodType)kitty.CatFoodType;
             vm.CatFoodXPNextLevel = kitty.CatFoodXPNextLevel;
+            vm.CreatedAt = kitty.CreatedAt;
+            vm.UpdatedAt = DateTime.Now;
             vm.Image.AddRange(images);
 
             return View(vm);

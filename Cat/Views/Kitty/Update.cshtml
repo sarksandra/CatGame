@@ -44,19 +44,21 @@
         </div>
 
         <div>
-            @foreach(var image in Model.Image)
+            @foreach (var image in Model.Image)
             {
-                <partial name="_Images" model="image" />
-                <input asp-action="removeImage " asp-asp-controller="kittys" asp-route-itemid="@image.ImageID " type="submit" class="btn btn-danger" value="Delete Image"  />
+                <partial name="_Images" model="image"></partial>
+                <input asp-action="removeImage" asp-controller="Kittys" asp-route-id="@image.ImageID" type="submit" class="btn btn-danger" value="Delete image" />
             }
         </div>
-
-
-
-        <input asp-action="create" asp-controller="Characters" type="submit"
-               class="btn btn-primary" value="Create">Create</a>
-
+        @{
+            var breakpoint = "";
+        }
+        <input asp-action="Update" asp-controller="Kittys" type="submit"
+               class="btn btn-primary" value="Change this titan" />
         <a asp-action="index" class="btn btn-primary">Cancel</a>
+
+
+
 
     </form>
 </div>

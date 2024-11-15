@@ -31,11 +31,11 @@
                     <td>@cat.CatFoodType</td>
                     <td>@cat.CatLevel</td>
                     <td>
-                        <a asp-action="details" asp-controller="Kitty" asp-route-id="@cat.Id" class="btn btn-info">CatDetails</a>
+                        <a asp-action="details" asp-controller="Kitty" asp-route-id="@cat.Id" class="btn btn-info">Details</a>
                         <br />
-                        <a asp-action="update" asp-controller="Kitty" asp-route-id="@cat.Id" class="btn btn-info">CatConfigur</a>
+                        <a asp-action="update" asp-controller="Kitty" asp-route-id="@cat.Id" class="btn btn-info">Update</a>
                         <br />
-                        <a asp-action="Delete" asp-controller="Kitty" asp-route-id="@cat.Id" class="btn btn-info">KittyDelete</a>
+                        <a asp-action="Delete" asp-controller="Kitty" asp-route-id="@cat.Id" class="btn btn-info">Delete</a>
                     </td>   
                 </tr>
                 rowNumber++;

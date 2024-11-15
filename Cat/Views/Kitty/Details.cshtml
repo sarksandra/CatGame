@@ -4,7 +4,7 @@
 <h1>@Html.DisplayFor(model => model.CatName)</h1>
 
 <div>
-    <h4> My, Lord, thyne Titan, be in a state of flux;</h4>
+    <h4> Your little kitty</h4>
     <hr />
     <dl class="row">
         <div class="form-group row">
@@ -18,14 +18,18 @@
         <div class="form-group row">
             <label asp-for="CatName" class="col-sm-2 col-form-label"></label>
             @Html.DisplayFor(model => model.CatName)
+        </div>       
+        @* todo: combine titanxp AND TT LEVEL INTO ON PROGRAM BAR*@
+        <div class="form-group row">
+            <label asp-for="CatType" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatType)
+        </div>
+        <div class="form-group row">
+            <label asp-for="CatFoodType" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatFoodType)
         </div>
         <div class="form-group row">
             <label asp-for="CatLevel" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.CatLevel)
-        </div>
-        @* todo: combine titanxp AND TT LEVEL INTO ON PROGRAM BAR*@
-        @*<div class="form-group row">
-            <label asp-for="CatName" class="col-sm-2 col-form-label"></label>
             @Html.DisplayFor(model => model.CatLevel)
         </div>
         <div class="form-group row">
@@ -40,5 +44,5 @@
        
 
     </dl>
-    <a asp-action="Index" asp-controller="Kitty" class="btn btn-secondary">Index</a>
+    <a asp-action="Index" asp-controller="Kitty" class="btn btn-secondary">Back</a>
 </div>

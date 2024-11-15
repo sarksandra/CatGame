@@ -4,7 +4,7 @@ namespace Cat.Models.Kitty
 {
     public class KittyDetailsViewModel : Controller
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string CatName { get; set; }
         public int CatFoodXP { get; set; }
         public int CatFoodXPNextLevel { get; set; }

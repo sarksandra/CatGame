@@ -30,27 +30,26 @@ namespace Cat.ApplicationServices.Service
             return result ;
         }
 
-        Task<Kittys> IKittysServices.DetailsAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
         public async Task<Kittys> Create(KittyDto dto)
         {
+            //set by server
             Kittys kittys = new Kittys();
             kittys.Id = Guid.NewGuid();
-            kittys.CatName = dto.CatName;
             kittys.CatFoodXP = 0;
             kittys.CatLevel = 0;
             kittys.CatFoodXPNextLevel = 0;
 
-            
-
+            //set by user
+            kittys.CatName = dto.CatName;
             kittys.CatType = (Core.Domain.CatType)dto.CatType;
             kittys.CatFoodType = (Core.Domain.CatFoodType)dto.CatFoodType;
 
+            //set by db
             kittys.CreatedAt = DateTime.Now;
             kittys.UpdatedAt = DateTime.Now;
 
+
+            //files
             if (dto.Files != null)
             {
                 _fileServices.UploadFilesToDatabase(dto, kittys);
