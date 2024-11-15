@@ -5,8 +5,6 @@ using CatGame.Data;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Cat.Controllers
 {
@@ -16,7 +14,7 @@ namespace Cat.Controllers
         private readonly KittyGameContext _context;
         private readonly IKittysServices _catsServices;
         private readonly IFileServices _fileServices;
-        public KittyController(KittyGameContext context, IKittysServices catsServices, IFileServices fileServices )
+        public KittyController(KittyGameContext context, IKittysServices catsServices, IFileServices fileServices)
         {
             _context = context;
             _catsServices = catsServices;
@@ -38,8 +36,8 @@ namespace Cat.Controllers
                 });
             return View(reusltingInventory);
         }
-        [HttpGet] 
-        public IActionResult Create() 
+        [HttpGet]
+        public IActionResult Create()
         {
             KittyCreateViewModel vm = new();
             return View("Create", vm);
@@ -64,14 +62,14 @@ namespace Cat.Controllers
                 {
                     Id = x.ImageID,
                     ImageTitle = x.ImageTitle,
-                    ImageData = x.ImageData, 
+                    ImageData = x.ImageData,
                     CatID = x.CatID,
 
                 }).ToArray()
 
             };
             var result = await _catsServices.Create(dto);
-            if(result == null)
+            if (result == null)
             {
                 return RedirectToAction("Index");
 
@@ -82,8 +80,8 @@ namespace Cat.Controllers
         public async Task<IActionResult> Details(Guid id /*, Guid ref*/)
         {
             var kitty = await _catsServices.DetailsAsync(id);
-            if(kitty == null)
-            { 
+            if (kitty == null)
+            {
                 return NotFound(); // TODO, cutom partial view with message,titan is not located
             }
             var images = await _context.FilesToDatabase
@@ -111,16 +109,16 @@ namespace Cat.Controllers
 
 
 
-             
+
         }
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            
+
             var kitty = await _catsServices.DetailsAsync(id);
             if (kitty == null)
             {
@@ -184,11 +182,11 @@ namespace Cat.Controllers
                 }).ToArray()
 
             };
-          
+
 
             var result = await _catsServices.Update(dto);
 
-            if (result == null) 
+            if (result == null)
             {
                 return RedirectToAction("Index");
             }
@@ -238,8 +236,8 @@ namespace Cat.Controllers
             {
                 Id = vm.ImageID
             };
-            var image = await _fileServices.RemoveImagefromDatabase(dto);
-                if(image == null) { return RedirectToAction("Index"); }
+            var image = await _fileServices.RemoveImageFromDatabase(dto);
+            if (image == null) { return RedirectToAction("Index"); }
             return RedirectToAction("Index");
         }
     }

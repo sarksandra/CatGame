@@ -46,20 +46,23 @@ namespace Cat.ApplicationServices.Service
                 }
             }
         }
-        public async Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabase dto)
+        public async Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabaseDto dto)
         {
             var imageID = await _context.FilesToDatabase
                 .FirstOrDefaultAsync(x => x.Id == dto.Id);
-            var filePath = _webHost.ContentRootPath + "\\ multipleFileUpload\\" + imageID.ExistingFilePath;
+            var filePath = _webHost.ContentRootPath + "\\multipleFileUpload\\" + imageID.ImageData;
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
-
             }
+
             _context.FilesToDatabase.Remove(imageID);
             await _context.SaveChangesAsync();
+
             return null;
+
         }
+
     }
    
 }
