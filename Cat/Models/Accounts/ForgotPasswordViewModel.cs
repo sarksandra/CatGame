@@ -6,5 +6,6 @@ namespace Cat.Models.Accounts
     {
         [Required]
         [EmailAddress]
+        public string Email { get; set; }
     }
 }

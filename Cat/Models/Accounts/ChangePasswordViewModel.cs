@@ -13,6 +13,6 @@ namespace Cat.Models.Accounts
 
         [Required]
         [DataType(DataType.Password)]
-        [Display()Name]
+        [Display(Name = "")]
     }
 }
