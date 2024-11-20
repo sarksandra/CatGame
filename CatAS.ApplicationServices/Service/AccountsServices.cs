@@ -1,4 +1,5 @@
 ﻿using Cat.Core.Domain;
+using Cat.Core.ServiceInterFace;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Identity.Client;
 using System;

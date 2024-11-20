@@ -13,6 +13,7 @@ namespace Cat.Models.Accounts
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "")]
+        [Display(Name = "Type your new password: ")]
+        public string ConfirmPassword { get; set; }
     }
 }
