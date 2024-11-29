@@ -10,8 +10,8 @@ namespace Cat.Models.Accounts
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Display(Name = "Remeber this account?")]
-        public string RemeberMe { get; set; }
+        [Display(Name = "Remember this account? ")]
+        public bool RememberMe { get; set; }
         public string? ReturnURL { get; set; }
     }
 }

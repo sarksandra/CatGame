@@ -6,11 +6,14 @@ namespace Cat.Models.Accounts
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Type new kitty password here:")]
+        [Display(Name = "Type new password here: ")]
         public string NewPassword { get; set; }
+
+
         [DataType(DataType.Password)]
-        [Display(Name = "Type it again plizzz:")]
-        [Compare("NewPassword", ErrorMessage ="The new kitty password and its confirmation do not match. Please try again")]
-        public string ConfirmPassword { get; set;}
+        [Display(Name = "Type it again to confirm: ")]
+        [Compare("NewPassword", ErrorMessage = "The new password and its confirmation do not match. Please retry.")]
+
+        public string ConfirmPassword { get; set; }
     }
 }
