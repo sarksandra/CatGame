@@ -10,9 +10,9 @@ namespace Cat.Core.ServiceInterFace
 {
     public interface IAccountsServices
     {
+        Task<ApplicationUser> ConfirmEmail(string userId, string token);
         Task<ApplicationUser> Register(ApplicationUserDto dto);
-        Task<ApplicationUser> ConfirmedEmail(string userId, string token);
-        Task<ApplicationUser> LogIn(LogInDto dto);
+        Task<ApplicationUser> Login(LogInDto dto);
 
     }
 }

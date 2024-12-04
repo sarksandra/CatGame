@@ -15,8 +15,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IKittysServices, KittyServices>();
 builder.Services.AddScoped<IFileServices, FileServices>();
 builder.Services.AddScoped<IAccountsServices, AccountsServices>();
-
-
 builder.Services.AddDbContext<KittyGameContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -24,26 +22,26 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequiredLength = 3;
 
-    options.Tokens.EmailConfirmationTokenProvider = "CustomEmaiöConfirmation";
+    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
     options.Lockout.MaxFailedAccessAttempts = 3;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 })
     .AddEntityFrameworkStores<KittyGameContext>()
     .AddDefaultTokenProviders()
-    .AddTokenProvider<DataProtectorTokenProvider<KittyGameContext>>("CustomEmailConfirmation")
+    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("CustomEmailConfirmation")
     .AddDefaultUI();
 
 //all tokenss
-builder.Services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(5)
-);
+builder.Services.Configure<DataProtectionTokenProviderOptions>(
+    options => options.TokenLifespan = TimeSpan.FromHours(5)
+    );
 
-//email token
+//email tokens confirmation
 builder.Services.Configure<CustomEmailConFirmationTokenProviderOptions>(
     options => options.TokenLifespan = TimeSpan.FromDays(3)
     );
 
 
-    
 
 
 var app = builder.Build();
