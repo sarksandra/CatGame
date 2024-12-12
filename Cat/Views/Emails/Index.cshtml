@@ -1,7 +1,8 @@
 ﻿@model Cat.Models.Emails.EmailViewModel
 
 <div>
-    <form methoud="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
+
         <div class="form-group row">
             <label asp-for="To" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-5">
@@ -22,5 +23,8 @@
                 <input asp-for="Body" class="form-control" />
             </div>
         </div>
-     </form>
+
+        <input asp-action="sendEmail" asp-controller="Emails" type="submit" class="btn btn-primary" value="Send Email" />
+
+    </form>
 </div>
