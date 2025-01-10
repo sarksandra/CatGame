@@ -101,7 +101,6 @@ namespace Cat.Controllers
             vm.CatName = kitty.CatName;
             vm.CatType = (Models.Kitty.CatType)kitty.CatType;
             vm.CatLevel = kitty.CatLevel;
-            vm.CatFoodType = (Models.Kitty.CatFoodType)kitty.CatFoodType;
             vm.CatFoodXPNextLevel = kitty.CatFoodXPNextLevel;
             vm.Image.AddRange(images);
 
@@ -114,16 +113,12 @@ namespace Cat.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) { return NotFound(); }
 
-            var kitty = await _catsServices.DetailsAsync(id);
-            if (kitty == null)
-            {
-                return NotFound();
-            }
+            var titan = await _catsServices.DetailsAsync(id);
+
+            if (titan == null) { return NotFound(); }
+
             var images = await _context.FilesToDatabase
                 .Where(x => x.CatID == id)
                 .Select(y => new KittyImageViewModel
@@ -132,60 +127,49 @@ namespace Cat.Controllers
                     ImageID = y.Id,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
-                    Image = string.Format("data:image/gif;base64, {0}", Convert.ToBase64String(y.ImageData))
-
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
                 }).ToArrayAsync();
 
             var vm = new KittyCreateViewModel();
-            vm.Id = kitty.Id;
-            vm.CatName = kitty.CatName;
-            vm.CatType = (Models.Kitty.CatType)kitty.CatType;
-            vm.CatLevel = kitty.CatLevel;
-            vm.CatFoodType = (Models.Kitty.CatFoodType)kitty.CatFoodType;
-            vm.CatFoodXPNextLevel = kitty.CatFoodXPNextLevel;
-            vm.CreatedAt = kitty.CreatedAt;
+            vm.Id = titan.Id;
+            vm.CatName = titan.CatName;
+            vm.CatFoodXP = titan.CatFoodXP;
+            vm.CatFoodXPNextLevel = titan.CatFoodXPNextLevel;
+            vm.CatLevel = titan.CatLevel;
+            vm.CatType = (Models.Kitty.CatType)titan.CatType;
+            vm.CreatedAt = titan.CreatedAt;
             vm.UpdatedAt = DateTime.Now;
             vm.Image.AddRange(images);
 
             return View("Update", vm);
-
         }
-
-
         [HttpPost]
         public async Task<IActionResult> Update(KittyCreateViewModel vm)
         {
             var dto = new KittyDto()
             {
-                Id = vm.Id,
+                Id = (Guid)vm.Id,
                 CatName = vm.CatName,
                 CatFoodXP = 0,
                 CatFoodXPNextLevel = 100,
                 CatLevel = 0,
                 CatFoodType = (Core.Dto.CatFoodType)vm.CatFoodType,
                 CatType = (Core.Dto.CatType)vm.CatType,
-                CreatedAt = DateTime.Now,
-                UpdateAt = DateTime.Now,
+                CreatedAt = vm.CreatedAt,
+                UpdatedAt = DateTime.Now,
                 Files = vm.Files,
                 Image = vm.Image
                 .Select(x => new FileToDatabaseDto
                 {
                     Id = x.ImageID,
-                    ImageTitle = x.ImageTitle,
                     ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
                     CatID = x.CatID,
-
                 }).ToArray()
-
             };
-
-
             var result = await _catsServices.Update(dto);
 
-            if (result == null)
-            {
-                return RedirectToAction("Index");
-            }
+            if (result == null) { return RedirectToAction("Index"); }
             return RedirectToAction("Index", vm);
         }
         [HttpGet]
