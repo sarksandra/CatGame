@@ -13,7 +13,8 @@ namespace Cat.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _kittyContext.PlayerProfiles.OrderByDescending(x => x.ScreenName) );
+            return View();
+            
         }
     }
 }

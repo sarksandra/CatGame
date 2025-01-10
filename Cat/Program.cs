@@ -24,13 +24,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequiredLength = 3;
 
-    options.Tokens.EmailConfirmationTokenProvider = "CustomEmaiöConfirmation";
+    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
     options.Lockout.MaxFailedAccessAttempts = 3;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 })
     .AddEntityFrameworkStores<KittyGameContext>()
     .AddDefaultTokenProviders()
-    .AddTokenProvider<DataProtectorTokenProvider<KittyGameContext>>("CustomEmailConfirmation")
+    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("CustomEmailConfirmation")
     .AddDefaultUI();
 
 //all tokenss
