@@ -15,6 +15,7 @@ namespace Cat.ApplicationServices.Service
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IPlayerProfilesServices _playerProfilesServices;
 
 
         public AccountsServices
