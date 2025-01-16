@@ -16,5 +16,6 @@ namespace CatGame.Data
         public KittyGameContext(DbContextOptions<KittyGameContext> options): base(options) { }
         public DbSet<Kittys> Kittys { get; set; }
         public DbSet<FileToDatabase> FilesToDatabase { get; set; }
+        public DbSet<PlayerProfile> PlayerProfiles { get; set; }
     }
 }
