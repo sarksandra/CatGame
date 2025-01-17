@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<KittyServices, KittyServices>();
+builder.Services.AddScoped<IKittysServices, KittyServices>();
 builder.Services.AddScoped<IFileServices, FileServices>();
 builder.Services.AddScoped<IAccountsServices, AccountsServices>();
 builder.Services.AddDbContext<KittyGameContext>(
