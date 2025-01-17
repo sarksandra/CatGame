@@ -1,4 +1,5 @@
 ﻿using Cat.Core.Domain;
+using Cat.Core.Dto.AccountDtos;
 using Cat.Models;
 using CatGame.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -46,9 +47,8 @@ namespace Cat.Controllers
                 ID = dto.ID,
                 ApplicationUserID = dto.ApplicationUserID,
                 ScreenName = "",
-                GalacticCredits = 100,
                 ScrapResource = 0,
-                MyTitans = new List<TitanOwnership>(),
+                MyKittys = new List<KittyOwnership>(),
                 Victories = 0,
                 CurrentStatus = ProfileStatus.Active,
                 ProfileType = false,
@@ -79,3 +79,5 @@ namespace Cat.Controllers
         {
             return View();
         }
+    }
+}
