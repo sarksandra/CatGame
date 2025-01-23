@@ -20,9 +20,9 @@ namespace Cat.ApplicationServices.Service
         {
             var email = new MimeMessage();
 
-            _configuration.GetSection("EmailUserName").Value = "supermariobrosmailee";
+            _configuration.GetSection("EmailUserName").Value = "kiisud";
             _configuration.GetSection("EmailHost").Value = "smtp.gmail.com";
-            _configuration.GetSection("EmailPassword").Value = "ucgp mjrl bdbh ilyh";
+            _configuration.GetSection("EmailPassword").Value = "yuyf qufb obig wyuy";
 
 
             email.From.Add(MailboxAddress.Parse(_configuration.GetSection("EmailUserName").Value));
@@ -47,9 +47,9 @@ namespace Cat.ApplicationServices.Service
             dto.Token = token;
             var email = new MimeMessage();
 
-            _configuration.GetSection("EmailUserName").Value = "supermariobrosmailee";
+            _configuration.GetSection("EmailUserName").Value = "kiisud";
             _configuration.GetSection("EmailHost").Value = "smtp.gmail.com";
-            _configuration.GetSection("EmailPassword").Value = "ucgp mjrl bdbh ilyh";
+            _configuration.GetSection("EmailPassword").Value = "yuyf qufb obig wyuy ";
 
 
             email.From.Add(MailboxAddress.Parse(_configuration.GetSection("EmailUserName").Value));
