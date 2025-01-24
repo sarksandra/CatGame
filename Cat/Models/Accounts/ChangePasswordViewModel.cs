@@ -1,6 +1,4 @@
-﻿
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cat.Models.Accounts
 {
@@ -8,9 +6,8 @@ namespace Cat.Models.Accounts
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Type your current password: ")]
+        [Display(Name ="Type your current password: ")]
         public string CurrentPassword { get; set; }
-
 
         [Required]
         [DataType(DataType.Password)]
@@ -18,7 +15,7 @@ namespace Cat.Models.Accounts
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Type it again to confirm: ")]
+        [Display(Name = "Type itr again to confirm: ")]
         public string ConfirmPassword { get; set; }
     }
 }

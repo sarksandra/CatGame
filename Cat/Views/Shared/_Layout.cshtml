@@ -1,38 +1,46 @@
-﻿@using Microsoft.AspNetCore.Identity;
+﻿﻿@using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Cat.Core.Domain.ApplicationUser> signInManager;
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Cat</title>
+    <title>@ViewData["Title"] - Kitty </title>
+   @*
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Cat.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HauntedHouse.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/gameStyle.css" />
+    <link rel="stylesheet" href="~/css/gameStyle.css" asp-append-version="true" />
+   *@ 
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header class="HColor">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 HColor">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cat</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Kitty</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between TColor">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Kitty" asp-action="Index">MY Catsssss</a>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Kittys" asp-action="Index">My Kitty</a>
+                            </li>                           
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Emails" asp-action="Index">Test Email Sending</a>
+                            </li>
+                        }                       
                     </ul>
-                    @*user logging section*@
+                    @* user login section on the navbar*@
                     <ul class="navbar-nav ml-auto">
                         @if (signInManager.IsSignedIn(User))
                         {
@@ -40,14 +48,13 @@
                                 <div class="dropdown">
                                     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         Manage Account
-
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <ul class="dropdown-menu CDDM" aria-labelledby="dropdownMenuButton">
                                         <li>
-                                            <a class="dropdown-item" asp-controller="Accounts" asp-action="ResetPassword">Delete User</a>
+                                            <a class="dropdown-item text-white" asp-controller="Accounts" asp-action="ResetPassword">Delete User</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" asp-controller="Accounts" asp-action="ChangePassword">Change Your User</a>
+                                            <a class="dropdown-item text-white" asp-controller="Accounts" asp-action="ChangePassword">Change your password</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -55,20 +62,19 @@
 
                             <li class="nav-item">
                                 <form method="post" asp-controller="Accounts" asp-action="Logout">
-                                    <button type="submit" class="nav-link btn btn-link py-0" style="width:auto; padding-top: 0.8rem;">
-                                        LogOut @User.Identity.Name
+                                    <button type="submit" class="nav-link btn btn-link py-0  text-white" style="width:auto; padding-top: 0.8rem;">
+                                        Logout @User.Identity.Name
                                     </button>
-                                    
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li>
-                                <a class="nav-link text-dark" asp-controller="Accounts" asp-action="Register">Register</a>
+                                <a class="nav-link text-white" asp-controller="Accounts" asp-action="Register">Register</a>
                             </li>
                             <li>
-                                <a class="nav-link text-dark" asp-controller="Accounts" asp-action="Login">Login</a>
+                                <a class="nav-link text-white" asp-controller="Accounts" asp-action="Login">Login</a>
                             </li>
                         }
                     </ul>
@@ -82,9 +88,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted HColor2">
         <div class="container">
-            &copy; 2024 - Cat - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - HauntedHouse - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

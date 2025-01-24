@@ -2,8 +2,7 @@
 
 namespace Cat.Security
 {
-    public class CustomEmailConFirmationTokenProviderOptions : DataProtectionTokenProviderOptions
+    public class CustomEmailConfirmationTokenProviderOptions : DataProtectionTokenProviderOptions
     {
-
     }
 }

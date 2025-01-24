@@ -11,9 +11,10 @@ namespace Cat.Models.Accounts
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm your password by typing again: ")]
-        [Compare("Password", ErrorMessage = "Password and its confirmation do not match. Please try again")]
+        [Display (Name = "Confirm your password by typing again: ")]
+        [Compare("Password", ErrorMessage ="Password and its confirmation do not match. Plase try agan")]
         public string ConfirmPassword { get; set; }
         public string City { get; set; }
+        public bool ProfileType { get; set; } //true = admin, false =player
     }
 }

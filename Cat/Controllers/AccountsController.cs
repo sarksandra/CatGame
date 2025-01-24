@@ -1,29 +1,31 @@
-﻿using Cat.Core.Domain;
-using Cat.Models.Accounts;
-using CatGame.Data;
+﻿using Cat.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Diagnostics;
+using Cat.Models;
+using Cat.Core.Domain;
+using Cat.Models.Accounts;
+using Cat.Core.Dto;
+using Cat.Core.ServiceInterface;
 
 namespace Cat.Controllers
 {
     public class AccountsController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _SignInManager;
         private readonly KittyGameContext _context;
+        private readonly IEmailsServices _emailServices;
+        private readonly IPlayerProfilesServices _playerProfilesServices;
 
-        public AccountsController
-            (UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            KittyGameContext context
-            )
+        public AccountsController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, KittyGameContext context, IEmailsServices emailsservices, IPlayerProfilesServices playerProfilesServices)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            _SignInManager = signInManager;
             _context = context;
+            _emailServices = emailsservices;
+            _playerProfilesServices = playerProfilesServices;
         }
         [HttpGet]
         public async Task<IActionResult> AddPassword()
@@ -52,7 +54,7 @@ namespace Cat.Controllers
                     }
                     return View();
                 }
-                await _signInManager.RefreshSignInAsync(user);
+                await _SignInManager.RefreshSignInAsync(user);
                 return View("AddPasswordConfirmation");
             }
             return View(model);
@@ -83,7 +85,7 @@ namespace Cat.Controllers
                     }
                     return View();
                 }
-                await _signInManager.RefreshSignInAsync(user);
+                await _SignInManager.RefreshSignInAsync(user);
                 return View("ChangePasswordConfirmation");
             }
             return View(model);
@@ -109,7 +111,6 @@ namespace Cat.Controllers
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
                     var passwordResetLink = Url.Action("ResetPassword", "Accounts", new { email = model.Email, token = token }, Request.Scheme);
-                    // !!
 
                     return View("ForgotPasswordConfirmation");
                 }
@@ -152,7 +153,7 @@ namespace Cat.Controllers
                         {
                             await _userManager.SetLockoutEndDateAsync(user, DateTimeOffset.UtcNow);
                         }
-                        await _signInManager.SignOutAsync();
+                        await _SignInManager.SignOutAsync();
                         await _userManager.DeleteAsync(user);
                         return RedirectToAction("ResetPasswordConfirmation", "Accounts");
                     }
@@ -165,7 +166,6 @@ namespace Cat.Controllers
                 await _userManager.DeleteAsync(user);
                 return RedirectToAction("ResetPasswordConfirmation", "Accounts");
             }
-
             return RedirectToAction("ResetPasswordConfirmation", "Accounts");
         }
 
@@ -176,7 +176,6 @@ namespace Cat.Controllers
             return View();
         }
 
-        // user register methods
         [HttpGet]
         public IActionResult Register()
         {
@@ -185,31 +184,38 @@ namespace Cat.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new ApplicationUser()
                 {
                     UserName = model.Email,
                     Email = model.Email,
                     City = model.City,
+                    ProfileType = model.ProfileType
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                TempData["NewUserID"] = user.Id;
                 if (result.Succeeded)
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new { userId = user.Id, token = token }, Request.Scheme);
-                    if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+
+                    EmailTokenDto newsignup = new();
+                    newsignup.Token = token;
+                    newsignup.Body = $"Thank you for signing up, klikka siia:  {confirmationLink}";
+                    newsignup.Subject = "HauntedHouse Register";
+                    newsignup.To = user.Email;
+
+                    _emailServices.SendEmailToken(newsignup, token);
+                    if (_SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
                         return RedirectToAction("ListUsers", "Administrations");
                     }
-
-                    ViewBag.ErrorTitle = "You have successfully registered";
-                    ViewBag.ErrorMessage = "Before you can log in, please confirm email from the link" +
-                        "\nwe have emailed to your email address.";
-                    return View("Error");
+                    return RedirectToAction("NewProfile", "PlayerProfiles");                   
                 }
                 foreach (var error in result.Errors)
                 {
@@ -221,6 +227,7 @@ namespace Cat.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             if (userId == null || token == null) { return RedirectToAction("Index", "Home"); }
@@ -231,16 +238,35 @@ namespace Cat.Controllers
                 return View("NotFound");
             }
             var result = await _userManager.ConfirmEmailAsync(user, token);
+            List<string> errordatas =
+                        [
+                        "Area", "Accounts",
+                        "Issue", "Failure",
+                        "StatusMessage", "Confirmation Failure",
+                        "ActedOn", $"{user.Email}",
+                        "CreatedAccountData", $"{user.Email}\n{user.City}\n[password hidden]\n[password hidden]"
+                        ];
             if (result.Succeeded)
             {
+                errordatas =
+                        [
+                        "Area", "Accounts",
+                        "Issue", "Success",
+                        "StatusMessage", "Confirmation Success",
+                        "ActedOn", $"{user.Email}",
+                        "CreatedAccountData", $"{user.Email}\n{user.City}\n[password hidden]\n[password hidden]"
+                        ];
+                ViewBag.ErrorDatas = errordatas;
                 return View();
+
             }
+
+            ViewBag.ErrorDatas = errordatas;
             ViewBag.ErrorTitle = "Email cannot be confirmed";
             ViewBag.ErrorMessage = $"The users email, with userid of {userId}, cannot be confirmed.";
-            return View("Error");
+            return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // user login & logout methods
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string? returnURL)
@@ -248,9 +274,7 @@ namespace Cat.Controllers
             LoginViewModel vm = new()
             {
                 ReturnURL = returnURL,
-                // extval
             };
-
             return View(vm);
         }
 
@@ -258,7 +282,6 @@ namespace Cat.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnURL)
         {
-            // extval
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -268,18 +291,19 @@ namespace Cat.Controllers
                     ModelState.AddModelError(string.Empty, "Your email hasn't been confirmed yet. Please check your Email spam folders.");
                     return View(model);
                 }
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
+                var result = await _SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(returnURL) && Url.IsLocalUrl(returnURL))
                     {
-                        return Redirect(returnURL);
+                        return View(returnURL);
                     }
                     else
                     {
                         return RedirectToAction("Index", "Home");
                     }
                 }
+
                 if (result.IsLockedOut)
                 {
                     return View("AccountLocked");
@@ -292,9 +316,8 @@ namespace Cat.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

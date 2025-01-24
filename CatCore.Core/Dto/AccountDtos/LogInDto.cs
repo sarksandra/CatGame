@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cat.Core.Dto.AccountDtos
+namespace Cat.Core.Dto.AccountsDtos
 {
-    public class LogInDto
+    public class LoginDto
     {
         public string Email { get; set; }
     }

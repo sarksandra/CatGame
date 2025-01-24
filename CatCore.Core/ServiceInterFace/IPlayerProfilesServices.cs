@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cat.Core.ServiceInterFace
+namespace Cat.Core.ServiceInterface
 {
     public interface IPlayerProfilesServices
     {

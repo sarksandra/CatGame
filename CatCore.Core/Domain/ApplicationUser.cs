@@ -10,6 +10,9 @@ namespace Cat.Core.Domain
     public class ApplicationUser : IdentityUser
     {
         public string City { get; set; }
+
         public Guid PlayerProfileID { get; set; }
+        public bool ProfileType { get; set; } //true = admin, false = player
+
     }
 }

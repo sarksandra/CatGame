@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Cat.Core.Dto
+namespace Cat.Core.Domain
 {
     public enum HunterStatus
     {
         Dead, Alive
     }
-    public class KittyDto
+    public class Kitty
     {
         public Guid ID { get; set; }
         public string HunterName { get; set; }
@@ -22,9 +25,6 @@ namespace Cat.Core.Dto
         public string SecondaryAttackName { get; set; }
         public int SpecialAttackPower { get; set; }
         public string SpecialAttackName { get; set; }
-
-        public List<IFormFile> Files { get; set; }
-        public IEnumerable<FileToDatabaseDto> Image { get; set; } = new List<FileToDatabaseDto>();
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

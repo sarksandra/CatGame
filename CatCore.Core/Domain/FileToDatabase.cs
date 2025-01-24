@@ -8,9 +8,10 @@ namespace Cat.Core.Domain
 {
     public class FileToDatabase
     {
-        public Guid Id { get; set; }
+        public Guid ID { get; set; }
         public string ImageTitle { get; set; }
         public byte[] ImageData { get; set; }
-        public Guid? CatID { get; set; }
+        public Guid? HunterID { get; set; }
+        public Guid? RoomID { get; set; }
     }
 }

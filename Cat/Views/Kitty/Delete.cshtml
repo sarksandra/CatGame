@@ -8,8 +8,8 @@
     <hr />
     <dl class="row">
         <div class="form-group row">
-            <label asp-for="Id" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Id)
+            <label asp-for="ID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ID)
         </div>
         @foreach (var image in Model.Image)
         {
@@ -25,31 +25,28 @@
         </div>
 
         @* todo: combine titanxp AND TT LEVEL INTO ON PROGRAM BAR*@
-        <div class="form-group row">
-            <label asp-for="CatFoodType" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.CatFoodType)
-        </div>
+
         <div class="form-group row">
             <label asp-for="CatLevel" class="col-sm-2 col-form-label"></label>
             @Html.DisplayFor(model => model.CatLevel)
         </div>
         <div class="form-group row">
-            <label asp-for="CatFoodXP" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.CatFoodXP)
+            <label asp-for="CatXP" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatXP)
         </div>
 
         @*Display type with image instead*@
         <div class="form-group row">
-            <label asp-for="CatFoodXPNextLevel" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.CatFoodXPNextLevel)
+            <label asp-for="CatXPNextLevel" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CatXPNextLevel)
         </div>
 
 
     </dl>
     <form asp-action="DeleteConfirmation">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ID" />
         <input type="submit" />
-        <a asp-action="Index" asp-controller="Kitty" class="btn btn-secondary">Back</a>
+        <a asp-action="Index" asp-controller="Kittys" class="btn btn-secondary">Back</a>
 
     </form>
    

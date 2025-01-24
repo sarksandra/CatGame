@@ -28,4 +28,8 @@
     <ProjectReference Include="..\CatData.Data\Cat.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\PlayerProfiles\" />
+  </ItemGroup>
+
 </Project>

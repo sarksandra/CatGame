@@ -1,31 +1,27 @@
 ﻿using Cat.Core.Domain;
 using Cat.Core.Dto;
-using Cat.Core.ServiceInterFace;
-using CatGame.Data;
+using Cat.Data;
+using Cat.Core.ServiceInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Cat.ApplicationServices.Service
+namespace   Cat.ApplicationServices.Services
 {
     public class FileServices : IFileServices
     {
         private readonly IHostEnvironment _webHost;
         private readonly KittyGameContext _context;
+
         public FileServices
-       (
-            IHostEnvironment webHost,
-            KittyGameContext context
-       )
+            (
+                IHostEnvironment webHost,
+                KittyGameContext context
+            )
         {
             _webHost = webHost;
             _context = context;
         }
-        public void UploadFilesToDatabase(KittyDto dto, Kittys domain)
+        public void UploadFilesToDatabase(KittyDto dto, Kitty domain)
         {
             if (dto.Files != null && dto.Files.Count > 0)
             {
@@ -35,34 +31,36 @@ namespace Cat.ApplicationServices.Service
                     {
                         FileToDatabase files = new FileToDatabase()
                         {
-                            Id = Guid.NewGuid(),
+                            ID = Guid.NewGuid(),
                             ImageTitle = image.FileName,
-                            CatID = Guid.NewGuid(),
+                            HunterID = domain.ID
                         };
+
                         image.CopyTo(target);
                         files.ImageData = target.ToArray();
-                        _context.FilesToDatabase.Add(files);
+                        _context.FilesToDatabases.Add(files);
+
                     }
                 }
             }
         }
+       
+
         public async Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabaseDto dto)
         {
-            var imageID = await _context.FilesToDatabase
-                .FirstOrDefaultAsync(x => x.Id == dto.Id);
+            var imageID = await _context.FilesToDatabases
+                .FirstOrDefaultAsync(x => x.ID == dto.ID);
             var filePath = _webHost.ContentRootPath + "\\multipleFileUpload\\" + imageID.ImageData;
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
             }
 
-            _context.FilesToDatabase.Remove(imageID);
+            _context.FilesToDatabases.Remove(imageID);
             await _context.SaveChangesAsync();
 
             return null;
 
         }
-
     }
-   
 }

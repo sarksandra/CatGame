@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace CatGame.Data
+namespace Cat.Data
 {
     public class KittyGameContext: IdentityDbContext<ApplicationUser>
     {
 
         public KittyGameContext(DbContextOptions<KittyGameContext> options): base(options) { }
-        public DbSet<Kittys> Kittys { get; set; }
-        public DbSet<FileToDatabase> FilesToDatabase { get; set; }
+        public DbSet<Kitty> Kittys { get; set; }
+        public DbSet<FileToDatabase> FilesToDatabases { get; set; }
         public DbSet<PlayerProfile> PlayerProfiles { get; set; }
     }
 }

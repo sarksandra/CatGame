@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Cat.Core.Dto
 {
-    public class EmailTokenDto
+    public class EmailTokenDto : EmailDto
     {
         public string Token { get; set; }
-        public string To { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
     }
 }

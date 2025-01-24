@@ -1,10 +1,11 @@
 ﻿using Cat.Core.Dto;
-using Cat.Core.ServiceInterFace;
+using Cat.Core.ServiceInterface;
+using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using MailKit.Net.Smtp;
 
-namespace Cat.ApplicationServices.Service
+
+namespace Cat.ApplicationServices.Services
 {
     public class EmailsServices : IEmailsServices
     {
@@ -19,9 +20,9 @@ namespace Cat.ApplicationServices.Service
         {
             var email = new MimeMessage();
 
-            _configuration.GetSection("EmailUserName").Value = "supermariobrosmailee";
+            _configuration.GetSection("EmailUserName").Value = "Mihkelploompuu@gmail.com";
             _configuration.GetSection("EmailHost").Value = "smtp.gmail.com";
-            _configuration.GetSection("EmailPassword").Value = "ucgp mjrl bdbh ilyh";
+            _configuration.GetSection("EmailPassword").Value = "ptqb zcmz nwgh kost";
 
 
             email.From.Add(MailboxAddress.Parse(_configuration.GetSection("EmailUserName").Value));
@@ -34,7 +35,6 @@ namespace Cat.ApplicationServices.Service
 
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
-            //google smtp app password = GalacticTitansSMTP ucgp mjrl bdbh ilyh 
             smtp.Connect(_configuration.GetSection("EmailHost").Value, 587, MailKit.Security.SecureSocketOptions.StartTls);
             smtp.Authenticate(_configuration.GetSection("EmailUserName").Value, _configuration.GetSection("EmailPassword").Value);
             smtp.Send(email);
@@ -46,9 +46,9 @@ namespace Cat.ApplicationServices.Service
             dto.Token = token;
             var email = new MimeMessage();
 
-            _configuration.GetSection("EmailUserName").Value = "supermariobrosmailee";
+            _configuration.GetSection("EmailUserName").Value = "Mihkelploompuu@gmail.com";
             _configuration.GetSection("EmailHost").Value = "smtp.gmail.com";
-            _configuration.GetSection("EmailPassword").Value = "ucgp mjrl bdbh ilyh";
+            _configuration.GetSection("EmailPassword").Value = "ptqb zcmz nwgh kost";
 
 
             email.From.Add(MailboxAddress.Parse(_configuration.GetSection("EmailUserName").Value));
@@ -61,7 +61,6 @@ namespace Cat.ApplicationServices.Service
 
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
-            //google smtp app password = GalacticTitansSMTP ucgp mjrl bdbh ilyh 
             smtp.Connect(_configuration.GetSection("EmailHost").Value, 587, MailKit.Security.SecureSocketOptions.StartTls);
             smtp.Authenticate(_configuration.GetSection("EmailUserName").Value, _configuration.GetSection("EmailPassword").Value);
             smtp.Send(email);

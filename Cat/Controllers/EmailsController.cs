@@ -1,5 +1,5 @@
 ﻿using Cat.Core.Dto;
-using Cat.Core.ServiceInterFace;
+using Cat.Core.ServiceInterface;
 using Cat.Models.Emails;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +17,6 @@ namespace Cat.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public IActionResult SendEmail(EmailViewModel viewModel)
         {
@@ -42,7 +41,6 @@ namespace Cat.Controllers
             };
             _emailsServices.SendEmailToken(dto, token);
             return RedirectToAction(nameof(Index));
-
         }
     }
 }

@@ -1,8 +1,7 @@
-using Cat.ApplicationServices.Service;
 using Cat.Core.Domain;
-using Cat.Core.ServiceInterFace;
+using Cat.Core.ServiceInterface;
+using Cat.Data;
 using Cat.Security;
-using CatGame.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +36,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options => option
 );
 
 //email token
-builder.Services.Configure<CustomEmailConFirmationTokenProviderOptions>(
+builder.Services.Configure<CustomEmailConfirmationTokenProviderOptions>(
     options => options.TokenLifespan = TimeSpan.FromDays(3)
     );
 

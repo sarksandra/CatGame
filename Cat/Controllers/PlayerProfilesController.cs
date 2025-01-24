@@ -1,7 +1,7 @@
 ﻿using Cat.Core.Domain;
-using Cat.Core.Dto.AccountDtos;
+using Cat.Core.Dto;
+using Cat.Data;
 using Cat.Models;
-using CatGame.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -47,8 +47,6 @@ namespace Cat.Controllers
                 ID = dto.ID,
                 ApplicationUserID = dto.ApplicationUserID,
                 ScreenName = "",
-                ScrapResource = 0,
-                MyKittys = new List<KittyOwnership>(),
                 Victories = 0,
                 CurrentStatus = ProfileStatus.Active,
                 ProfileType = false,
