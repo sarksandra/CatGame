@@ -3,7 +3,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Components.Web;
 using Cat.Core.ServiceInterface;
-using Cat.Models.Characters;
+using Cat.Models.Kittys;
 using Cat.Core.Dto;
 using Cat.Data;
 
@@ -11,29 +11,29 @@ namespace Cat.Controllers
 {
 	public class KittysController : Controller
 	{
-		//This controls all functions for characters, including missions.
+		
 
 		private readonly KittyGameContext _context;
-		private readonly IKittysServices _charactersServices;
+		private readonly IKittysServices _kittyServices;
 		private readonly IFileServices _fileServices;
 
-		public KittysController(KittyGameContext context, IKittysServices charactersServices, IFileServices fileServices)
+		public KittysController(KittyGameContext context, IKittysServices kittyServices, IFileServices fileServices)
 		{
 			_context = context;
-			_charactersServices = charactersServices;
+            _kittyServices = kittyServices;
 			_fileServices = fileServices;
 		}
 		[HttpGet]
 		public IActionResult Index()
 		{
 			var resultingInventory = _context.Kittys
-				.OrderByDescending(y => y.CharacterLevel)
+				.OrderByDescending(y => y.KittyLevel)
 				.Select(x => new KittyListIndexViewModel
 				{
 					ID = x.ID,
-					CharacterName = x.CharacterName,
-					CharacterClass = (Models.Characters.CharacterClass)x.CharacterClass,
-					CharacterLevel = x.CharacterLevel,
+					KittyName = x.KittyName,
+					KittyType = (Models.Kittys.KittyType)x.KittyType,
+					KittyLevel = x.KittyLevel,
 				});
 			return View(resultingInventory);
 		}

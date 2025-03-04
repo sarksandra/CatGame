@@ -1,4 +1,4 @@
-﻿namespace Cat.Models.Realms
+﻿namespace Cat.Models.Houses
 {
 	public class HouseImageViewModel
 	{

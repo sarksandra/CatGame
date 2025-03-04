@@ -1,4 +1,4 @@
-﻿namespace Cat.Models.Characters
+﻿namespace Cat.Models.Kittys
 {
     public class KittyImageViewModel
     {
