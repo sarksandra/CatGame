@@ -9,12 +9,12 @@ namespace Cat.Core.Dto
 {
 	public enum HouseEffect
 	{
-		Frozen, Eclipsed, Normal
+		purple, pink, blue
 	}
 	public class HouseDto
 	{
 		public Guid ID { get; set; }
-		public string HouseName { get; set; }
+		public string KittyName { get; set; }
 		public HouseEffect HouseEffect { get; set; }
 		public int CharacterLevelRequirement { get; set; }
 		public List<IFormFile> Files { get; set; }

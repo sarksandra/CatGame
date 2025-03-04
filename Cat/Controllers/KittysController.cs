@@ -49,18 +49,17 @@ namespace Cat.Controllers
 		{
 			var dto = new KittyDto
 			{
-				CharacterName = vm.CharacterName,
-				CharacterHealth = 100,
-				CharacterXP = 0,
-				CharacterXPNextLevel = 100,
-				CharacterLevel = 0,
-				CharacterClass = (Cat.Core.Dto.CharacterClass)vm.CharacterClass,
-				CharacterStatus = (Cat.Core.Dto.CharacterStatus)vm.CharacterStatus,
-				PrimaryAttackName = vm.PrimaryAttackName,
-				PrimaryAttackPower = vm.PrimaryAttackPower,
-				SpecialAttackName = vm.SpecialAttackName,
-				SpecialAttackPower = vm.SpecialAttackPower,
-				CharacterCreationTime = vm.CharacterCreationTime,
+				KittyName = vm.Kittyname,
+				KittyXP = 0,
+				KittyXPNextLevel = 100,
+				KittyLevel = 0,
+				KittyType = (Core.Domain.KittyType)vm.KittyType,
+				KittyStatus = (Core.Domain.KittyStatus)vm.KittyStatus,
+				FoodName = vm.FoodName,
+				FoodPower = vm.FoodPower,
+				SpecialFoodName = vm.SpecialFoodName,
+				SpecialFood = vm.SpecialFood,
+				CreationTime = vm.CreationTime,
 				Files = vm.Files,
 				Image = vm.Image.Select(x => new FileToDatabaseDto
 				{
@@ -70,7 +69,7 @@ namespace Cat.Controllers
 					CharacterID = x.CharacterID,
 				}).ToArray()
             };
-			var result = await _charactersServices.Create(dto);
+			var result = await _kittyServices.Create(dto);
 
 			if (result == null)
 			{
@@ -86,7 +85,7 @@ namespace Cat.Controllers
 				return NotFound();
 			}
 
-			var character = await _charactersServices.DetailsAsync(id);
+			var character = await _kittyServices.DetailsAsync(id);
 
 			if (character == null)
 			{
@@ -105,18 +104,17 @@ namespace Cat.Controllers
 					Image = string.Format("data:image/gif;base64{0}", Convert.ToBase64String(y.ImageData))
 				}).ToArrayAsync();
 			var vm = new KittyDetailsViewModel();
-            vm.CharacterName = vm.CharacterName;
-            vm.CharacterHealth = 100;
-            vm.CharacterXP = 0;
-            vm.CharacterXPNextLevel = 100;
-            vm.CharacterLevel = 0;
-			vm.CharacterClass = (Models.Characters.CharacterClass)character.CharacterClass;
-			vm.CharacterStatus = (Models.Characters.CharacterStatus)character.CharacterStatus;
-            vm.PrimaryAttackName = vm.PrimaryAttackName;
-            vm.PrimaryAttackPower = vm.PrimaryAttackPower;
-            vm.SpecialAttackName = vm.SpecialAttackName;
-            vm.SpecialAttackPower = vm.SpecialAttackPower;
-            vm.CharacterCreationTime = vm.CharacterCreationTime;
+            vm.Kittyname = vm.Kittyname;
+            vm.KittyXP = 0;
+            vm.KittyXPNextLevel = 100;
+            vm.KittyLevel = 0;
+			vm.KittyType = character.KittyType;
+			vm.KittyStatus = (Models.Kittys.KittyStatus)character.KittySatus;
+            vm.FoodName = vm.FoodName;
+            vm.FoodPower = vm.FoodPower;
+            vm.SpecialFoodName = vm.SpecialFoodName;
+            vm.SpecialFood = vm.SpecialFood;
+            vm.CreationTime = vm.CreationTime;
 
 			return View(vm);
 		}
@@ -125,15 +123,15 @@ namespace Cat.Controllers
 		{
 			if (id == null) { return NotFound(); }
 
-			var character = await _charactersServices.DetailsAsync(id);
+			var character = await _kittyServices.DetailsAsync(id);
 
 			if (id == null) { return NotFound(); }
 
 			var images = await _context.FilesToDatabase
-				.Where(x => x.CharacterID == id)
+				.Where(x => x.KittyID == id)
 				.Select(y => new KittyImageViewModel
 				{
-					CharacterID = y.ID,
+					KittyID = y.ID,
 					ImageID = y.ID,
 					ImageData = y.ImageData,
 					ImageTitle = y.ImageTitle,
@@ -141,18 +139,17 @@ namespace Cat.Controllers
 				}).ToArrayAsync();
 
             var vm = new KittyCreateViewModel();
-            vm.CharacterName = vm.CharacterName;
-            vm.CharacterHealth = 100;
-            vm.CharacterXP = 0;
-            vm.CharacterXPNextLevel = 100;
-            vm.CharacterLevel = 0;
-            vm.CharacterClass = (Models.Characters.CharacterClass)character.CharacterClass;
-            vm.CharacterStatus = (Models.Characters.CharacterStatus)character.CharacterStatus;
-            vm.PrimaryAttackName = vm.PrimaryAttackName;
-            vm.PrimaryAttackPower = vm.PrimaryAttackPower;
-            vm.SpecialAttackName = vm.SpecialAttackName;
-            vm.SpecialAttackPower = vm.SpecialAttackPower;
-            vm.CharacterCreationTime = vm.CharacterCreationTime;
+            vm.Kittyname = vm.Kittyname;
+            vm.KittyXP = 0;
+            vm.KittyXPNextLevel = 100;
+            vm.KittyLevel = 0;
+            vm.KittyType = (Models.Kittys.KittyType)character.KittyType;
+            vm.KittyStatus = (Models.Kittys.KittyStatus)character.KittyStatus;
+            vm.FoodName = vm.FoodName;
+            vm.FoodPower = vm.FoodPower;
+            vm.SpecialFoodName = vm.SpecialFoodName;
+            vm.SpecialFood = vm.SpecialFood;
+            vm.CreationTime = vm.CreationTime;
 
 			return View("Update", vm);
         }
@@ -162,25 +159,24 @@ namespace Cat.Controllers
 			var dto = new KittyDto()
 			{
 				ID = (Guid)vm.ID,
-				CharacterName = vm.CharacterName,
-				CharacterHealth = 100,
-				CharacterXP = 0,
-				CharacterXPNextLevel = 100,
-				CharacterLevel = 0,
-				CharacterClass = (Cat.Core.Dto.CharacterClass)vm.CharacterClass,
-				CharacterStatus = (Cat.Core.Dto.CharacterStatus)vm.CharacterStatus,
-				PrimaryAttackName = vm.PrimaryAttackName,
-				PrimaryAttackPower = vm.PrimaryAttackPower,
-				SpecialAttackName = vm.SpecialAttackName,
-				SpecialAttackPower = vm.SpecialAttackPower,
-				CharacterCreationTime = vm.CharacterCreationTime,
+				KittyName = vm.Kittyname,
+				KittyXP = 0,
+				KittyXPNextLevel = 100,
+				KittyLevel = 0,
+				KittyType = (Cat.Core.Dto.KittyType)vm.KittyType,
+				KittyStatus = (Cat.Core.Dto.KittyStatus)vm.KittyStatus,
+				FoodName = vm.FoodName,
+				FoodPower = vm.FoodPower,
+				SpecialFoodName = vm.SpecialFoodName,
+				SpecialFood = vm.SpecialFood,
+				CreationTime = vm.CreationTime,
 				Files = vm.Files,
 				Image = vm.Image.Select(x => new FileToDatabaseDto
 				{
 					ID = x.ImageID,
 					ImageData = x.ImageData,
 					ImageTitle = x.ImageTitle,
-					CharacterID = x.CharacterID,
+					KittyID = x.KittyID,
 				}).ToArray(),
 			};
 			var result = await _charactersServices.Update(dto);
@@ -201,10 +197,10 @@ namespace Cat.Controllers
 			if (id == null) { return NotFound(); };
 
 			var images = await _context.FilesToDatabase
-				.Where(x => x.CharacterID == id)
+				.Where(x => x.KittyID == id)
 				.Select( y => new KittyImageViewModel
 				{
-					CharacterID = y.ID,
+					KittyID = y.ID,
 					ImageID = y.ID,
 					ImageData = y.ImageData,
 					ImageTitle = y.ImageTitle,
@@ -213,18 +209,17 @@ namespace Cat.Controllers
 			var vm = new KittyDeleteViewModel();
 
 			vm.ID = character.ID;
-			vm.CharacterName = character.CharacterName;
-			vm.CharacterHealth = 100;
-			vm.CharacterXP = 0;
-			vm.CharacterXPNextLevel = 100;
-			vm.CharacterLevel = 0;
-			vm.CharacterClass = (Models.Characters.CharacterClass)character.CharacterClass;
-			vm.CharacterStatus = (Models.Characters.CharacterStatus)character.CharacterStatus;
-			vm.PrimaryAttackName = character.PrimaryAttackName;
-			vm.PrimaryAttackPower = character.PrimaryAttackPower;
-			vm.SpecialAttackName = character.SpecialAttackName;
-			vm.SpecialAttackPower = character.SpecialAttackPower;
-			vm.CharacterCreationTime = character.CharacterCreationTime;
+			vm.Kittyname = character.Kittyname;
+			vm.KittyXP = 0;
+			vm.KittyXPNextLevel = 100;
+			vm.KittyLevel = 0;
+			vm.KittyType = (Models.Kittys.KittyType)character.KittyType;
+			vm.KittyStatus = (Models.Kittys.KittyStatus)character.KittyStatus;
+			vm.FoodName = character.FoodName;
+			vm.FoodPower = character.FoodPower;
+			vm.SpecialFoodName = character.SpecialFoodName;
+			vm.SpecialFood = character.SPecialFood;
+			vm.CreationTime = character.CreationTime;
 			vm.Image.AddRange(images);
 			
 			return View(vm);
@@ -232,7 +227,7 @@ namespace Cat.Controllers
 		[HttpPost]
 		public async Task<IActionResult> DeleteConfirmation(Guid id)
 		{
-			var characterToDelete = await _charactersServices.Delete(id);
+			var characterToDelete = await _kittyServices.Delete(id);
 
 			if (characterToDelete == null) { return RedirectToAction("Index"); }
 

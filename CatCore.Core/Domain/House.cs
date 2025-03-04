@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Cat.Core.Domain
 {
-	public enum RealmEffect
+	public enum HouseEffect
 	{
-		Frozen, Eclipsed, Normal
+		purple, pink, blue
 	}
 	public class House
 	{
 		public Guid ID { get; set; }
-		public string HouseName { get; set; }
-		public RealmEffect HouseEffect { get; set; }
+		public string KittyName { get; set; }
+		public HouseEffect HouseEffect { get; set; }
 		public int CharacterLevelRequirement { get; set; }
 		public DateTime CreatedAt { get; set; }
     }

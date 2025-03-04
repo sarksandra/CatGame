@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Cat.Core.Domain;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,40 +8,38 @@ using System.Threading.Tasks;
 
 namespace Cat.Core.Dto
 {
-		public enum CharacterClass
+		public enum KittyType
 		{
 			Blight, Nurse, Survivor, Hillbilly
 		}
-		public enum CharacterStatus
+		public enum KittyStatus
 		{
-			Sacrificed, Downed, Injured, Healthy
+			Full, Hungry
 		}
-		public enum CharacterRank
+		public enum KittyRank
 		{
 			Bronze, Iridescent, Gold, Silver
 		}
 		public class KittyDto
 		{
 			public Guid ID { get; set; }
-			public string CharacterName { get; set; }
-			public int CharacterXP { get; set; }
-			public int CharacterXPNextLevel { get; set; }
-			public int CharacterLevel { get; set; }
-			public int CharacterMaxHealth { get; set; }
-			public int CharacterHealth { get; set; }
-			public CharacterClass CharacterClass { get; set; }
-			public int PrimaryAttackPower { get; set; }
-			public string PrimaryAttackName { get; set; }
-			public int SpecialAttackPower { get; set; }
-			public string SpecialAttackName { get; set; }
-			public DateTime CharacterCreationTime { get; set; }
-			public CharacterStatus CharacterStatus { get; set; }
-			public CharacterRank CharacterRank { get; set; }
-			//db only
+			public string KittyName { get; set; }
+			public int KittyXP { get; set; }
+			public int KittyXPNextLevel { get; set; }
+			public int KittyLevel { get; set; }
+			public KittyType KittyType { get; set; }
+			public int FoodPower { get; set; }
+			public string FoodName { get; set; }
+			public int SpecialFood { get; set; }
+			public string SpecialFoodName { get; set; }
+			public DateTime CreationTime { get; set; }
+			public KittyStatus KittyStatus { get; set; }
+			public KittyRank KittyRank { get; set; }
+        //db only
 
-			
-			//IMAGE
-			public List<IFormFile> Files {get; set;}
+
+        //IMAGE
+        public List<IFormFile> Files {get; set;}
 			public IEnumerable<FileToDatabaseDto> Image {get; set;} =  new List<FileToDatabaseDto>();
 
 			public DateTime CreatedAt { get; set; }

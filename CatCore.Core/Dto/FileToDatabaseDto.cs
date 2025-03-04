@@ -11,7 +11,7 @@ namespace Cat.Core.Dto
         public Guid ID { get; set; }
         public string ImageTitle { get; set; }
         public byte[] ImageData { get; set; }
-        public Guid? CharacterID { get; set; }
-        public Guid? RealmID { get; set; }
+        public Guid? KittyID { get; set; }
+        public Guid? HouseID { get; set; }
     }
 }
