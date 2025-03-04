@@ -2,7 +2,7 @@
 
 namespace Cat.Models.Realms
 {
-	public enum RealmEffect
+	public enum HouseEffect
 	{
 		Frozen, Eclipsed, Normal
 	}
@@ -10,7 +10,7 @@ namespace Cat.Models.Realms
 	{
 		public Guid ID { get; set; }
 		public string HouseName { get; set; }
-		public RealmEffect HouseEffect { get; set; }
+		public HouseEffect HouseEffect { get; set; }
 		public int CharacterLevelRequirement { get; set; }
 		public List<IFormFile> Files { get; set; }
 		public List<HouseImageViewModel> Image { get; set; } = new List<HouseImageViewModel>();
