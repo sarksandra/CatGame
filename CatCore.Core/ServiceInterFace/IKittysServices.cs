@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Cat.Core.ServiceInterface
 {
-    public interface IKittysServices
-    {
-        Task<Kitty> DetailsAsync(Guid id);
-        Task<Kitty> Create(KittyDto dto);
-        Task<Kitty> Update(KittyDto dto);
-        Task<Kitty> Delete(Guid id);
-    }
+	public interface IKittysServices
+	{
+		Task<Kitty> DetailsAsync(Guid id);
+		Task<Kitty> Create(KittyDto dto);
+		Task<Kitty> Delete(Guid id);
+		Task<Kitty>Update(KittyDto dto);
+	}
 }

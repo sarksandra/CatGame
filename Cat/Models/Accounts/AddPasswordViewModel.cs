@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cat.Models.Accounts
+namespace CedarCreek.Models.Accounts
 {
     public class AddPasswordViewModel
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name ="Type new password here:")]
+        [Display(Name  = "Enter New Password")]
         public string NewPassword { get; set; }
         [DataType(DataType.Password)]
-        [Display(Name = "Type it again to confirm:")]
-        [Compare("NewPassword" , ErrorMessage ="The new password and its confirmation do not match. Plase retry.")]
+        [Display(Name = "Confirm Your Password")]
+        [Compare("NewPassword", ErrorMessage = "Password does not match")]
         public string ConfirmPassword { get; set; }
     }
 }

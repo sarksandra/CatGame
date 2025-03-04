@@ -1,40 +1,38 @@
 ﻿@model Cat.Models.Profiles.ProfileRegisterViewModel
 
-<div class="gTZRG isCommonBlue">
-    <h1> Customize your profile: </h1>
+<div class="">
+	<h1> Customize your profile: </h1>
 </div>
 
 <div class="row">
-    <div class="col-md-12 gTZRG">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger">
+	<div class="col-md-12">
+		<form method="post">
 
-                <input type="hidden" asp-for="ApplicationUserID" />
-                <input type="hidden" asp-for="HunterCredits" />
-                <input type="hidden" asp-for="Victories" />
-                <input type="hidden" asp-for="MyBuilding" />
-                <input type="hidden" asp-for="CurrentStatus" />
-                <input type="hidden" asp-for="ProfileType" />
+			<div asp-validation-summary="All" class="">
+				<input type="hidden" asp-for="ApplicationUserID"/>
+				<input type="hidden" asp-for="ScreenName"/>
+				<input type="hidden" asp-for="Gold" />
+				<input type="hidden" asp-for="ProfileType" />
+				<input type="hidden" asp-for="Victories" />
 
-                <div class="form-group">
-                    <label asp-for="ScreenName"></label>
-                    <input asp-for="ScreenName" class="form-control"/>
-                    <span asp-validation-for="ScreenName" class="text-danger"></span>
-                </div>
+			</div>
+			<div class="form-group">
+				<label asp-for="ScreenName"></label>
+				<input asp-for="ScreenName" class="form-control" />
+				<span asp-validation-for="ScreenName" class=""></span>
+			</div>
 
-                <button type="submit">
-                    <a id="gCbuttonText" viewBox="0 0 200 50"
-                    @* asp-controller="PlayerProfiles" asp-action="NewProfile" *@>
-                        <svg id="indexButton" class="gCbuttonL1">
-                            <rect class="svgButtonMainStyle"></rect>
-                            <text x="10" y="21" class="svgButtonMainTextStyle gTZRG">This is me</text>
-                            <polygon class="svgButtonMainTriangleStyle" points='0,0 0,13 13,0'></polygon>
-                            <polygon class="svgButtonMainTriangleStyle" points='130,30 130,17 117,30'></polygon>
-                        </svg>
-                    </a>
-                </button>
-
-            </div>
-        </form>
-    </div>
+			<button type="submit">
+				<a asp-route-id=@ViewData["NewUserID"] id="" viewBox="0 0 200 50"
+				   asp-controller="PlayerProfiles" asp-action="NewProfile">	
+					<svg id="indexButton" class="">
+						<rect class=""></rect>
+						<text x="10" y="21"class="">This is the text</text>
+						<polygon class="" points="0,0 0,13 13,0"></polygon>
+						<polygon class="" points="130,30 130,17 117,30"></polygon>
+					</svg>
+				</a>
+			</button>
+		</form>
+	</div>
 </div>

@@ -11,7 +11,6 @@ namespace Cat.Core.Domain
         public Guid ID { get; set; }
         public string ImageTitle { get; set; }
         public byte[] ImageData { get; set; }
-        public Guid? HunterID { get; set; }
-        public Guid? RoomID { get; set; }
+        public Guid? CharacterID { get; set; }
     }
 }

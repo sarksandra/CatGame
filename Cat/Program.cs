@@ -2,8 +2,10 @@ using Cat.Core.Domain;
 using Cat.Core.ServiceInterface;
 using Cat.Data;
 using Cat.Security;
+using Cat.ApplicationServices.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 
 
@@ -14,34 +16,35 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IKittysServices, KittyServices>();
 builder.Services.AddScoped<IFileServices, FileServices>();
 builder.Services.AddScoped<IAccountsServices, AccountsServices>();
-builder.Services.AddDbContext<KittyGameContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<IEmailsServices, EmailsServices>();
+builder.Services.AddScoped<IPlayerProfilesServices, PlayerProfilesServices>();
+builder.Services.AddScoped<IHousesServices, HousesServices>();
+builder.Services.AddScoped<PlayerProfile>();
+builder.Services.AddDbContext<KittyGameContext>
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequiredLength = 3;
-
     options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
     options.Lockout.MaxFailedAccessAttempts = 3;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 })
+
     .AddEntityFrameworkStores<KittyGameContext>()
     .AddDefaultTokenProviders()
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>("CustomEmailConfirmation")
     .AddDefaultUI();
 
-//all tokenss
-builder.Services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(5)
-);
+//all tokens
+builder.Services.Configure<DataProtectionTokenProviderOptions>(
+    options => options.TokenLifespan = TimeSpan.FromHours(5)
+    );
 
-//email token
+//email tokens confirmation
 builder.Services.Configure<CustomEmailConfirmationTokenProviderOptions>(
     options => options.TokenLifespan = TimeSpan.FromDays(3)
     );
-
-
-
 
 
 var app = builder.Build();

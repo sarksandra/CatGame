@@ -17,6 +17,7 @@ namespace Cat.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult SendEmail(EmailViewModel viewModel)
         {
@@ -30,7 +31,7 @@ namespace Cat.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
-        public IActionResult SendTokenEmail(EmailViewModel viewModel, string token)
+        public IActionResult SendEmailToken(EmailViewModel viewModel, string token)
         {
             var dto = new EmailTokenDto()
             {

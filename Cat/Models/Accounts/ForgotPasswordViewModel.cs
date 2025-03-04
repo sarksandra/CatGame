@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cat.Models.Accounts
+namespace CedarCreek.Models.Accounts
 {
     public class ForgotPasswordViewModel
     {

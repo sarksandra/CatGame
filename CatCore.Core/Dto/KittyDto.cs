@@ -1,32 +1,49 @@
 ﻿using Microsoft.AspNetCore.Http;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Cat.Core.Dto
 {
-    public enum HunterStatus
-    {
-        Dead, Alive
-    }
-    public class KittyDto
-    {
-        public Guid ID { get; set; }
-        public string HunterName { get; set; }
-        public int HunterHealth { get; set; }
-        public int HunterXP { get; set; }
-        public int HunterXPNextLevel { get; set; }
-        public int HunterLevel { get; set; }
-        public HunterStatus HunterStatus { get; set; }
-        public int PrimaryAttackPower { get; set; }
-        public string PrimaryAttackName { get; set; }
-        public int SecondaryAttackPower { get; set; }
-        public string SecondaryAttackName { get; set; }
-        public int SpecialAttackPower { get; set; }
-        public string SpecialAttackName { get; set; }
+		public enum CharacterClass
+		{
+			Blight, Nurse, Survivor, Hillbilly
+		}
+		public enum CharacterStatus
+		{
+			Sacrificed, Downed, Injured, Healthy
+		}
+		public enum CharacterRank
+		{
+			Bronze, Iridescent, Gold, Silver
+		}
+		public class KittyDto
+		{
+			public Guid ID { get; set; }
+			public string CharacterName { get; set; }
+			public int CharacterXP { get; set; }
+			public int CharacterXPNextLevel { get; set; }
+			public int CharacterLevel { get; set; }
+			public int CharacterMaxHealth { get; set; }
+			public int CharacterHealth { get; set; }
+			public CharacterClass CharacterClass { get; set; }
+			public int PrimaryAttackPower { get; set; }
+			public string PrimaryAttackName { get; set; }
+			public int SpecialAttackPower { get; set; }
+			public string SpecialAttackName { get; set; }
+			public DateTime CharacterCreationTime { get; set; }
+			public CharacterStatus CharacterStatus { get; set; }
+			public CharacterRank CharacterRank { get; set; }
+			//db only
 
-        public List<IFormFile> Files { get; set; }
-        public IEnumerable<FileToDatabaseDto> Image { get; set; } = new List<FileToDatabaseDto>();
+			
+			//IMAGE
+			public List<IFormFile> Files {get; set;}
+			public IEnumerable<FileToDatabaseDto> Image {get; set;} =  new List<FileToDatabaseDto>();
 
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-    }
-}
+			public DateTime CreatedAt { get; set; }
+			public DateTime UpdatedAt { get; set; }
+		}
+	}

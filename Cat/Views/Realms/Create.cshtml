@@ -1,0 +1,72 @@
+﻿@model Cat.Models.Realms.HouseCreateViewModel
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        @*
+        <input asp-for="CreatedAt" type="hidden" />
+        <input asp-for="UpdatedAt" type="hidden" />
+        <input asp-for="CharacterXP" value="0" type="hidden" />
+        <input asp-for="CharacterLevel" value="0" type="hidden" />
+        <input asp-for="CharacterXPNextLevel" value="100" type="hidden" />
+        <input asp-for="CharacterMaxHealth" value="100" type="hidden" />
+        <input asp-for="CharacterHealth" value="100" type="hidden" />
+        <input asp-for="@Model.CharacterStatus" value="Healthy" type="hidden" />
+        <input asp-for="CharacterCreationTime" type="hidden" />
+        *@
+
+
+        <div class="form-group-row">
+            <label asp-for="RealmName" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="RealmName" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group-row">
+            <label asp-for="RealmEffect" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="RealmEffect" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group-row">
+            <label asp-for="CharacterLevelRequirement" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="CharacterLevelRequirement" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group-row">
+            <label asp-for="Files" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-5">
+                <div class="custom-file">
+                    <input class="form-control custom-file-input"
+                           asp-for="Files"
+                           multiple type="file" />
+                    <label class="custom-file-label">Choose Level Sprite</label>
+                </div>
+            </div>
+        </div>
+        <input asp-action="create" asp-controller="Realms" type="submit"
+               class="btn btn-primary" value="Pick Realm"></input>
+
+        <a asp-action="index" class="btn btn-primary">Cancel</a>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileLabel = $(this).next('.custom-file-input');
+                var files = $(this)[0].files;
+                if (files.length > 1) {
+                    fileLabel.html(files.length + 'files selected');
+                }
+                else if (files.length == 1) {
+                    fileLabel.html(files[0].name);
+                }
+            });
+        });
+    </script>
+}

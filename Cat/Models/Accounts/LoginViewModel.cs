@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cat.Models.Accounts
+namespace CedarCreek.Models.Accounts
 {
     public class LoginViewModel
     {
@@ -10,9 +10,9 @@ namespace Cat.Models.Accounts
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Display(Name ="Remember this account? ")]
+        [Display(Name = "Remember This Account?")]
         public bool RememberMe { get; set; }
-        public string? ReturnURL { get; set; }
-        public bool ProfileType { get; set; } //true = admin, false =player
+        public string? returnURL { get; set; }
+   
     }
 }

@@ -1,0 +1,72 @@
+﻿@model Cat.Models.Characters.KittyDeleteViewModel
+<h1> @Html.DisplayFor(model => model.CharacterName)</h1>
+
+<div class="form-group row">
+    <h4>Placeholder text I dont know what the fuck this is</h4>
+    <hr />
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="ID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ID)
+        </div>
+        <div class="form-group-row">
+            <label asp-for="CharacterName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CharacterName)
+        </div>
+
+
+        <div id="imagediv">
+            @foreach (var image in Model.Image)
+            {
+                <partial name="_Images" model="image" />
+            }
+        </div>
+
+
+        <div class="form-group row">
+            <label asp-for="CharacterHealth" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CharacterHealth)
+        </div>
+        <div class="form-group row">
+            <label asp-for="CharacterLevel" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CharacterLevel)
+        </div>
+        @*Should put CharacterXP and CharacterXPNextLevel into the same progress bar*@
+        <div class="form-group row">
+            <label asp-for="CharacterXP" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CharacterXP)
+        </div>
+        <div class="form-group row">
+            <label asp-for="CharacterXPNextLevel" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CharacterXPNextLevel)
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="CharacterStatus" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CharacterStatus)
+        </div>
+
+
+
+        <div class="form-group row">
+            <label asp-for="PrimaryAttackName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.PrimaryAttackName)
+            <label asp-for="PrimaryAttackPower" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.PrimaryAttackPower)
+        </div>
+        <div class="form-group row">
+            <label asp-for="SpecialAttackName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.SpecialAttackName)
+            <label asp-for="SpecialAttackPower" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.SpecialAttackPower)
+        </div>
+    </dl>
+</div>
+
+
+
+<form asp-action="DeleteConfirmation">
+	<input type="hidden" asp-for="ID"/>
+	<input type="submit" value="Delete" class="btn btn-danger"/>
+	<a asp-action="Index" asp-controller="characters" class="btn btn-secondary danger"></a>
+</form>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cat.Models.Accounts
+namespace CedarCreek.Models.Accounts
 {
     public class ResetPasswordViewModel
     {
@@ -11,10 +11,9 @@ namespace Cat.Models.Accounts
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [DataType(DataType.Password)]
-        [Display(Name ="Confrim your password by typing it again: ")]
-        [Compare("Password", ErrorMessage = "Password and its confirmation do not match. Plase try agan")]
+        [Display(Name = "Confirm Your Password")]
+        [Compare("Password", ErrorMessage = "Password does not match")]
         public string ConfirmPassword { get; set; }
-
         public string Token { get; set; }
     }
 }
