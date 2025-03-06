@@ -39,7 +39,7 @@ namespace Cat.ApplicationServices.Services
                         {
                             ID = Guid.NewGuid(),
                             ImageTitle = image.FileName,
-                            CharacterID = realm.ID
+                            KittyID = realm.ID
                         };
                         image.CopyTo( target );
                         files.ImageData = target.ToArray();

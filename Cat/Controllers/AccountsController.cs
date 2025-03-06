@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Cat.Core.Domain;
-using CedarCreek.Models.Accounts;
+using Cat.Models.Accounts;
 using Cat.Data;
 
 namespace Cat.Controllers

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CedarCreek.Models.Accounts
+namespace Cat.Models.Accounts
 {
     public class RegisterViewModel
     {

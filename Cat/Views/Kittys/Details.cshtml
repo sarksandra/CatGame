@@ -1,0 +1,63 @@
+﻿@model Cat.Models.Kittys.KittyDetailsViewModel
+
+<h1>@Html.DisplayFor(model => model.Kittyname)</h1>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="ID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ID)
+        </div>
+        <div class="form-group-row">
+            <label asp-for="Kittyname" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Kittyname)
+        </div>
+
+
+        <div id="imagediv">
+            @foreach (var image in Model.Image)
+            {
+                <partial name="_Images" model="image"/>
+            }
+        </div>
+
+
+        <div class="form-group row">
+            <label asp-for="KittyLevel" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.KittyLevel)
+        </div>
+        @*Should put CharacterXP and CharacterXPNextLevel into the same progress bar*@
+        <div class="form-group row">
+            <label asp-for="KittyXP" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.KittyXP)
+        </div>
+        <div class="form-group row">
+            <label asp-for="KittyXPNextLevel" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.KittyXPNextLevel)
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="KittyStatus" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.KittyStatus)
+        </div>
+
+
+
+        <div class="form-group row">
+            <label asp-for="FoodName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FoodName)
+            <label asp-for="FoodPower" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FoodPower)
+        </div>
+        <div class="form-group row">
+            <label asp-for="SpecialFoodName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.SpecialFoodName)
+            <label asp-for="SpecialFood" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.SpecialFood)
+        </div>
+    </dl>
+
+    <a asp-action="Index" asp-controller="Kittys" class="btn btn-secondary">Index</a>
+</div>

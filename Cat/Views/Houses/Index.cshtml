@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Cat.Models.Realms.HouseListIndexViewModel>
+﻿@model IEnumerable<Cat.Models.Houses.HouseListIndexViewModel>
 
 @{
 	int rowNumber = 1;
 }
-<div><a asp-action="Create" asp-controller="realms" class="btn btn-primary">Create a new realm</a></div>
+<div><a asp-action="Create" asp-controller="houses" class="btn btn-primary">Create a new house</a></div>
 
 <div class="h1">Existing realms:</div>
 <form method="post">
@@ -25,13 +25,13 @@
 					<td>@rowNumber</td>
 					<td>@realm.HouseName</td>
 					<td>@realm.HouseEffect</td>
-					<td>@realm.CharacterLevelRequirement</td>
+					<td>@realm.HouseLevelRequirement</td>
 					<td>
-						<a asp-action="details" asp-controller="realms" asp-route-id="@realm.ID" class="btn btn-info">Details</a>
+						<a asp-action="details" asp-controller="houses" asp-route-id="@realm.ID" class="btn btn-info">Details</a>
 						<br />
-						<a asp-action="update" asp-controller="realms" asp-route-id="@realm.ID" class="btn btn-info">Configure</a>
+						<a asp-action="update" asp-controller="houses" asp-route-id="@realm.ID" class="btn btn-info">Configure</a>
 						<br />
-						<a asp-action="delete" asp-controller="realms" asp-route-id="@realm.ID" class="btn btn-info">Delete</a>
+						<a asp-action="delete" asp-controller="houses" asp-route-id="@realm.ID" class="btn btn-info">Delete</a>
 					</td>
 				</tr>
 				rowNumber++;

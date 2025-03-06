@@ -53,8 +53,8 @@ namespace Cat.Controllers
 				KittyXP = 0,
 				KittyXPNextLevel = 100,
 				KittyLevel = 0,
-				KittyType = (Core.Domain.KittyType)vm.KittyType,
-				KittyStatus = (Core.Domain.KittyStatus)vm.KittyStatus,
+				KittyType = (Core.Dto.KittyType)vm.KittyType,
+				KittyStatus = (Core.Dto.KittyStatus)vm.KittyStatus,
 				FoodName = vm.FoodName,
 				FoodPower = vm.FoodPower,
 				SpecialFoodName = vm.SpecialFoodName,
@@ -66,7 +66,7 @@ namespace Cat.Controllers
 					ID = x.ImageID,
 					ImageData = x.ImageData,
 					ImageTitle = x.ImageTitle,
-					CharacterID = x.CharacterID,
+					KittyID = x.KittyID,
 				}).ToArray()
             };
 			var result = await _kittyServices.Create(dto);
@@ -85,19 +85,19 @@ namespace Cat.Controllers
 				return NotFound();
 			}
 
-			var character = await _kittyServices.DetailsAsync(id);
+			var kitty = await _kittyServices.DetailsAsync(id);
 
-			if (character == null)
+			if (kitty == null)
 			{
 				return NotFound();
 			}
 			
 
 			var images = await _context.FilesToDatabase
-				.Where(c => c.CharacterID == id)
+				.Where(c => c.KittyID == id)
 				.Select(y => new KittyImageViewModel
 				{
-				CharacterID = y.ID,
+				KittyID = y.ID,
 					ImageID = y.ID,
 					ImageData = y.ImageData,
 					ImageTitle = y.ImageTitle,
@@ -108,8 +108,8 @@ namespace Cat.Controllers
             vm.KittyXP = 0;
             vm.KittyXPNextLevel = 100;
             vm.KittyLevel = 0;
-			vm.KittyType = character.KittyType;
-			vm.KittyStatus = (Models.Kittys.KittyStatus)character.KittySatus;
+			vm.KittyType = (Models.Kittys.KittyType)kitty.KittyType;
+			vm.KittyStatus = (Models.Kittys.KittyStatus)kitty.KittyStatus;
             vm.FoodName = vm.FoodName;
             vm.FoodPower = vm.FoodPower;
             vm.SpecialFoodName = vm.SpecialFoodName;
@@ -123,7 +123,7 @@ namespace Cat.Controllers
 		{
 			if (id == null) { return NotFound(); }
 
-			var character = await _kittyServices.DetailsAsync(id);
+			var kitty = await _kittyServices.DetailsAsync(id);
 
 			if (id == null) { return NotFound(); }
 
@@ -143,8 +143,8 @@ namespace Cat.Controllers
             vm.KittyXP = 0;
             vm.KittyXPNextLevel = 100;
             vm.KittyLevel = 0;
-            vm.KittyType = (Models.Kittys.KittyType)character.KittyType;
-            vm.KittyStatus = (Models.Kittys.KittyStatus)character.KittyStatus;
+            vm.KittyType = (Models.Kittys.KittyType)kitty.KittyType;
+            vm.KittyStatus = (Models.Kittys.KittyStatus)kitty.KittyStatus;
             vm.FoodName = vm.FoodName;
             vm.FoodPower = vm.FoodPower;
             vm.SpecialFoodName = vm.SpecialFoodName;
@@ -179,7 +179,7 @@ namespace Cat.Controllers
 					KittyID = x.KittyID,
 				}).ToArray(),
 			};
-			var result = await _charactersServices.Update(dto);
+			var result = await _kittyServices.Update(dto);
 			
 			if (result == null)
 			{
@@ -192,7 +192,7 @@ namespace Cat.Controllers
 		{
 			if (id == null) { return NotFound(); }
 
-			var character = await _charactersServices.DetailsAsync(id);
+			var kitty = await _kittyServices.DetailsAsync(id);
 
 			if (id == null) { return NotFound(); };
 
@@ -208,18 +208,18 @@ namespace Cat.Controllers
 				}).ToArrayAsync();
 			var vm = new KittyDeleteViewModel();
 
-			vm.ID = character.ID;
-			vm.Kittyname = character.Kittyname;
+			vm.ID = kitty.ID;
+			vm.Kittyname = kitty.KittyName;
 			vm.KittyXP = 0;
 			vm.KittyXPNextLevel = 100;
 			vm.KittyLevel = 0;
-			vm.KittyType = (Models.Kittys.KittyType)character.KittyType;
-			vm.KittyStatus = (Models.Kittys.KittyStatus)character.KittyStatus;
-			vm.FoodName = character.FoodName;
-			vm.FoodPower = character.FoodPower;
-			vm.SpecialFoodName = character.SpecialFoodName;
-			vm.SpecialFood = character.SPecialFood;
-			vm.CreationTime = character.CreationTime;
+			vm.KittyType = (Models.Kittys.KittyType)kitty.KittyType;
+			vm.KittyStatus = (Models.Kittys.KittyStatus)kitty.KittyStatus;
+			vm.FoodName = kitty.FoodName;
+			vm.FoodPower = kitty.FoodPower;
+			vm.SpecialFoodName = kitty.SpecialFoodName;
+			vm.SpecialFood = kitty.SpecialFood;
+			vm.CreationTime = kitty.CreationTime;
 			vm.Image.AddRange(images);
 			
 			return View(vm);
@@ -227,9 +227,9 @@ namespace Cat.Controllers
 		[HttpPost]
 		public async Task<IActionResult> DeleteConfirmation(Guid id)
 		{
-			var characterToDelete = await _kittyServices.Delete(id);
+			var ToDelete = await _kittyServices.Delete(id);
 
-			if (characterToDelete == null) { return RedirectToAction("Index"); }
+			if (ToDelete == null) { return RedirectToAction("Index"); }
 
 			return RedirectToAction("Index");
 		}

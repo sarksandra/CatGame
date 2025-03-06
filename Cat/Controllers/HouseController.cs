@@ -1,20 +1,19 @@
 ﻿using Cat.Core.Dto;
 using Cat.Core.ServiceInterface;
 using Cat.Data;
-using Cat.Models.Realms;
-using Cat.ApplicationServices.Services;
+using Cat.Models.Houses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CedarCreek.Controllers
 {
-    public class RealmsController : Controller
+    public class HouseController : Controller
 	{
 		private readonly KittyGameContext _context;
 		private readonly IHousesServices _realmsServices;
 		private readonly IFileServices _fileServices;
 
-		public RealmsController(KittyGameContext context, IHousesServices realmsServices, IFileServices fileServices)
+		public HouseController(KittyGameContext context, IHousesServices realmsServices, IFileServices fileServices)
 		{
 			_context = context;
 			_realmsServices = realmsServices;
@@ -30,8 +29,8 @@ namespace CedarCreek.Controllers
 				{
 					ID = x.ID,
 					HouseName = x.HouseName,
-					HouseEffect = (Models.House.HouseEffect)x.HouseEffect,
-					CharacterLevelRequirement = x.CharacterLevelRequirement,
+					HouseEffect = (Cat.Models.Houses.HouseEffect)x.HouseEffect,
+					HouseLevelRequirement = x.HouseLevelRequirement,
 				});
 			return View(resultingInventory);
 		}
@@ -46,16 +45,16 @@ namespace CedarCreek.Controllers
 		{
 			var dto = new HouseDto
 			{
-				HouseName = vm.RealmName,
-				HouseEffect = (HouseEffect)vm.RealmEffect,
-				CharacterLevelRequirement = vm.CharacterLevelRequirement,
+				HouseName = vm.HouseName,
+				HouseEffect = (Cat.Core.Dto.HouseEffect)vm.HouseEffect,
+				HouseLevelRequirement = vm.HouseLevelRequirement,
 				Files = vm.Files,
 				Image = vm.Image.Select(x => new FileToDatabaseDto
 				{
 					ID = x.ImageID,
 					ImageData = x.ImageData,
 					ImageTitle = x.ImageTitle,
-					RealmID = x.RealmID,
+					HouseID = x.HouseID,
 				}).ToArray()
 			};
 			var result = await _realmsServices.Create(dto);

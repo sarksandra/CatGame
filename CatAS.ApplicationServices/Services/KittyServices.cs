@@ -34,22 +34,21 @@ namespace Cat.ApplicationServices.Services
 
             //Set by service
             character.ID = Guid.NewGuid();
-            character.CharacterName = dto.CharacterName;
-            character.CharacterHealth = 100;
-            character.CharacterLevel = 0;
-            character.CharacterXP = 0;
-            character.CharacterXPNextLevel = 100;
-            character.CharacterLevel = 0;
-            character.CharacterStatus = (Cat.Core.Domain.CharacterStatus)3;
+            character.KittyName = dto.KittyName;
+            character.KittyLevel = 0;
+            character.KittyXP = 0;
+            character.KittyXPNextLevel = 100;
+            character.KittyLevel = 0;
+            character.KittyStatus = (Cat.Core.Domain.KittyStatus)3;
             character.CreatedAt = DateTime.Now;
 
 
             //Set by user
-            character.CharacterClass = (Cat.Core.Domain.CharacterClass)dto.CharacterClass;
-            character.PrimaryAttackName = dto.PrimaryAttackName;
-            character.PrimaryAttackPower = dto.PrimaryAttackPower;
-            character.SpecialAttackName = dto.SpecialAttackName;
-            character.SpecialAttackPower = dto.SpecialAttackPower;
+            character.KittyType = (Cat.Core.Domain.KittyType)dto.KittyType;
+            character.FoodName = dto.FoodName;
+            character.FoodPower = dto.FoodPower;
+            character.SpecialFoodName = dto.SpecialFoodName;
+            character.SpecialFood = dto.SpecialFood;
 
             //set for db
             character.CreatedAt = DateTime.Now;
@@ -81,22 +80,20 @@ namespace Cat.ApplicationServices.Services
 
             //Set by service
             character.ID = Guid.NewGuid();
-            character.CharacterName = dto.CharacterName;
-            character.CharacterHealth = 100;
-            character.CharacterLevel = 0;
-            character.CharacterXP = 0;
-            character.CharacterXPNextLevel = 100;
-            character.CharacterLevel = 0;
-            character.CharacterStatus = Cat.Core.Domain.CharacterStatus.Healthy;
+            character.KittyName = dto.KittyName;
+            character.KittyLevel = 0;
+            character.KittyXP = 0;
+            character.KittyXPNextLevel = 100;
+            character.KittyLevel = 0;
+            character.KittyStatus = (Cat.Core.Domain.KittyStatus)3;
             character.CreatedAt = DateTime.Now;
 
-
             //Set by user
-            character.CharacterClass = (Cat.Core.Domain.CharacterClass)dto.CharacterClass;
-            character.PrimaryAttackName = dto.PrimaryAttackName;
-            character.PrimaryAttackPower = dto.PrimaryAttackPower;
-            character.SpecialAttackName = dto.SpecialAttackName;
-            character.SpecialAttackPower = dto.SpecialAttackPower;
+            character.KittyType = (Cat.Core.Domain.KittyType)dto.KittyType;
+            character.FoodName = dto.FoodName;
+            character.FoodPower = dto.FoodPower;
+            character.SpecialFoodName = dto.SpecialFoodName;
+            character.SpecialFood = dto.SpecialFood;
 
             //set for db
             character.CreatedAt = DateTime.Now;
