@@ -40,7 +40,7 @@ namespace Cat.Controllers
             {
                 ID = dto.Id,
                 ApplicationUserID = dto.ApplicationUserID,
-                MyCharacters = new List<CharacterOwnership>(),
+                MyCharacters = new List<KittyOwnership>(),
                 ScreenName = "",
                 Gold = 25,
                 Momentos = 0,

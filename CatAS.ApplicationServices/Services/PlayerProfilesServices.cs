@@ -33,7 +33,7 @@ namespace Cat.ApplicationServices.Services
                 CurrentStatus = ProfileStatus.Active,
                 Gold = 0,
                 Momentos = 0,
-                MyCharacters = new List<CharacterOwnership>(),
+                MyCharacters = new List<KittyOwnership>(),
                 ProfileType = false,
                 Victories = 0,
             };

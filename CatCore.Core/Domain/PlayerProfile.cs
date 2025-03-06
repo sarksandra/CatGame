@@ -20,6 +20,6 @@ namespace Cat.Core.Domain
         public int Victories { get; set; }
         public ProfileStatus CurrentStatus { get; set; }
         public bool ProfileType {  get; set; }
-        public List<CharacterOwnership> MyCharacters { get; set; }
+        public List<KittyOwnership> MyCharacters { get; set; }
     }
 }

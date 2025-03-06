@@ -36,7 +36,7 @@ namespace Cat.ApplicationServices.Services
 			realm.ID = Guid.NewGuid();
 			realm.HouseName = dto.HouseName;
 			realm.House = (HouseEffect)dto.HouseEffect;
-			realm.CharacterLevelRequirement = dto.CharacterLevelRequirement;
+			realm.HouseLevelRequirement = dto.CharacterLevelRequirement;
 
 			await _context.Houses.AddAsync(realm);
 			await _context.SaveChangesAsync();

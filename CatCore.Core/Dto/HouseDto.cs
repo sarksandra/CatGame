@@ -14,9 +14,9 @@ namespace Cat.Core.Dto
 	public class HouseDto
 	{
 		public Guid ID { get; set; }
-		public string KittyName { get; set; }
+		public string HouseName { get; set; }
 		public HouseEffect HouseEffect { get; set; }
-		public int CharacterLevelRequirement { get; set; }
+		public int HouseLevelRequirement { get; set; }
 		public List<IFormFile> Files { get; set; }
 		public IEnumerable<FileToDatabaseDto> Image { get; set; } = new List<FileToDatabaseDto>();
 	}

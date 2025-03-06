@@ -13,9 +13,9 @@ namespace Cat.Core.Domain
 	public class House
 	{
 		public Guid ID { get; set; }
-		public string KittyName { get; set; }
+		public string HouseName { get; set; }
 		public HouseEffect HouseEffect { get; set; }
-		public int CharacterLevelRequirement { get; set; }
+		public int HouseLevelRequirement { get; set; }
 		public DateTime CreatedAt { get; set; }
     }
 }
