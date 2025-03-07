@@ -4,9 +4,9 @@
     <form method="post" asp-action="Update" enctype="multipart/form-data">
 
         <div class="form-group-row">
-            <label asp-for="Kittyname" class="col-sm-2 col-form-label"></label>
+            <label asp-for="KittyName" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Kittyname" class="form-control" />
+                <input asp-for="KittyName" class="form-control" />
             </div>
         </div>
 
@@ -62,8 +62,19 @@
             </div>
         </div>
 
-        <a asp-action="Update" asp-controller="kittys" type="submit"
-        class="btn btn-primary" value="Change this kitty">Create</a>
+        <div>
+            @foreach (var image in Model.Image)
+            {
+                <partial name="_Images" model="image" />
+                <input asp-action="removeImage" asp-controller="Kittys" asp-route-id="@image.ImageID" type="submit" class="btn btn-danger" value="Delete image" />
+            }
+        </div>
+
+       @*  <a asp-action="Update" asp-controller="Kittys" type="submit"
+        class="btn btn-primary" value="Change this kitty">Create</a> *@
+
+        <input asp-action="Update" asp-controller="Kittys" type="submit"
+            class="btn btn-primary"  value="Change"/>
 
         <a asp-action="index" class="btn btn-primary">Cancel</a>
 

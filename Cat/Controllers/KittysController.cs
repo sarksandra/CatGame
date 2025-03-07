@@ -49,7 +49,7 @@ namespace Cat.Controllers
 		{
 			var dto = new KittyDto
 			{
-				KittyName = vm.Kittyname,
+				KittyName = vm.KittyName,
 				KittyXP = 0,
 				KittyXPNextLevel = 100,
 				KittyLevel = 0,
@@ -80,10 +80,10 @@ namespace Cat.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details(Guid id)
 		{
-			if (id == null)
-			{
-				return NotFound();
-			}
+			//if (id == null)
+			//{
+			//	return NotFound();
+			//}
 
 			var kitty = await _kittyServices.DetailsAsync(id);
 
@@ -97,24 +97,27 @@ namespace Cat.Controllers
 				.Where(c => c.KittyID == id)
 				.Select(y => new KittyImageViewModel
 				{
-				KittyID = y.ID,
+					KittyID = y.ID,
 					ImageID = y.ID,
 					ImageData = y.ImageData,
 					ImageTitle = y.ImageTitle,
 					Image = string.Format("data:image/gif;base64{0}", Convert.ToBase64String(y.ImageData))
 				}).ToArrayAsync();
+
 			var vm = new KittyDetailsViewModel();
-            vm.Kittyname = vm.Kittyname;
+			vm.ID = kitty.ID;
+            vm.KittyName = kitty.KittyName;
             vm.KittyXP = 0;
             vm.KittyXPNextLevel = 100;
             vm.KittyLevel = 0;
 			vm.KittyType = (Models.Kittys.KittyType)kitty.KittyType;
 			vm.KittyStatus = (Models.Kittys.KittyStatus)kitty.KittyStatus;
-            vm.FoodName = vm.FoodName;
-            vm.FoodPower = vm.FoodPower;
-            vm.SpecialFoodName = vm.SpecialFoodName;
-            vm.SpecialFood = vm.SpecialFood;
-            vm.CreationTime = vm.CreationTime;
+            vm.FoodName = kitty.FoodName;
+            vm.FoodPower = kitty.FoodPower;
+            vm.SpecialFoodName = kitty.SpecialFoodName;
+            vm.SpecialFood = kitty.SpecialFood;
+            vm.CreationTime = kitty.CreationTime;
+			vm.Image.AddRange(images);
 
 			return View(vm);
 		}
@@ -139,7 +142,7 @@ namespace Cat.Controllers
 				}).ToArrayAsync();
 
             var vm = new KittyCreateViewModel();
-            vm.Kittyname = vm.Kittyname;
+            vm.KittyName = vm.KittyName;
             vm.KittyXP = 0;
             vm.KittyXPNextLevel = 100;
             vm.KittyLevel = 0;
@@ -159,7 +162,7 @@ namespace Cat.Controllers
 			var dto = new KittyDto()
 			{
 				ID = (Guid)vm.ID,
-				KittyName = vm.Kittyname,
+				KittyName = vm.KittyName,
 				KittyXP = 0,
 				KittyXPNextLevel = 100,
 				KittyLevel = 0,
@@ -209,7 +212,7 @@ namespace Cat.Controllers
 			var vm = new KittyDeleteViewModel();
 
 			vm.ID = kitty.ID;
-			vm.Kittyname = kitty.KittyName;
+			vm.KittyName = kitty.KittyName;
 			vm.KittyXP = 0;
 			vm.KittyXPNextLevel = 100;
 			vm.KittyLevel = 0;

@@ -9,7 +9,7 @@ namespace Cat.Core.Domain
     public class KittyOwnership : Kitty
     {
         public Guid ID { get; set; }
-        public string Kittyname { get; set; }
+        public string KittyName { get; set; }
         public int KittyXP { get; set; }
         public int KittyXPNextLevel { get; set; }
         public int KittyLevel { get; set; }

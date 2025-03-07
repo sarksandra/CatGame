@@ -20,7 +20,7 @@ namespace Cat.ApplicationServices.Services
         {
             _context = context;
             _fileServices = fileServices;
-            _fileServices = fileServices;
+
         }
         public async Task<Kitty> DetailsAsync(Guid id)
         {
@@ -76,27 +76,27 @@ namespace Cat.ApplicationServices.Services
 
         public async Task<Kitty> Update(KittyDto dto)
         {
-            Kitty character = new();
+            Kitty character = new Kitty();
 
             //Set by service
-            character.ID = Guid.NewGuid();
+            character.ID = dto.ID;
             character.KittyName = dto.KittyName;
             character.KittyLevel = 0;
             character.KittyXP = 0;
             character.KittyXPNextLevel = 100;
             character.KittyLevel = 0;
-            character.KittyStatus = (Cat.Core.Domain.KittyStatus)3;
+            character.KittyStatus = (Core.Domain.KittyStatus)dto.KittyStatus;
             character.CreatedAt = DateTime.Now;
 
             //Set by user
-            character.KittyType = (Cat.Core.Domain.KittyType)dto.KittyType;
+            character.KittyType = (Core.Domain.KittyType)dto.KittyType;
             character.FoodName = dto.FoodName;
             character.FoodPower = dto.FoodPower;
             character.SpecialFoodName = dto.SpecialFoodName;
             character.SpecialFood = dto.SpecialFood;
 
             //set for db
-            character.CreatedAt = DateTime.Now;
+            character.CreatedAt = dto.CreatedAt;
             character.UpdatedAt = DateTime.Now;
 
             //files

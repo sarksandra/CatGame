@@ -1,5 +1,5 @@
 ﻿@model Cat.Models.Kittys.KittyDeleteViewModel
-<h1> @Html.DisplayFor(model => model.Kittyname)</h1>
+<h1> @Html.DisplayFor(model => model.KittyName)</h1>
 
 <div class="form-group row">
     <h4>Placeholder text I dont know what the fuck this is</h4>
@@ -10,8 +10,8 @@
             @Html.DisplayFor(model => model.ID)
         </div>
         <div class="form-group-row">
-            <label asp-for="Kittyname" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Kittyname)
+            <label asp-for="KittyName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.KittyName)
         </div>
 
 
@@ -63,5 +63,5 @@
 <form asp-action="DeleteConfirmation">
 	<input type="hidden" asp-for="ID"/>
 	<input type="submit" value="Delete" class="btn btn-danger"/>
-	<a asp-action="Index" asp-controller="characters" class="btn btn-secondary danger"></a>
+	<a asp-action="Index" asp-controller="Kittys" class="btn btn-secondary danger">Index</a>
 </form>

@@ -17,9 +17,9 @@
 
 
         <div class="form-group-row">
-            <label asp-for="Kittyname" class="col-sm-2 col-form-label"></label>
+            <label asp-for="KittyName" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="Kittyname" class="form-control" />
+                <input asp-for="KittyName" class="form-control" />
             </div>
         </div>
 
@@ -73,7 +73,7 @@
         @{
             var breakpoint = "";
         }
-        <input asp-action="create" asp-controller="Characters" type="submit"
+        <input asp-action="create" asp-controller="Kittys" type="submit"
         class="btn btn-primary form-text" value="Create Character"></input>
 
         <a asp-action="index" class="btn btn-primary">Cancel</a>
