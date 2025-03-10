@@ -1,5 +1,6 @@
 html {
     font-size: 14px;
+    
 }
 
 @media (min-width: 768px) {
@@ -16,8 +17,13 @@ html {
     position: relative;
     min-height: 100%;
 }
+.btn, .btn-link {
+    background-color: #D16D7D; 
+}
 
 body {
     margin-bottom: 60px;
-    
+    background-color: #F7C8D1;
+    font-family: 'Times New Roman', Times, serif;
 }
+
