@@ -5,7 +5,7 @@ using Cat.Models.Houses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CedarCreek.Controllers
+namespace Cat.Controllers
 {
     public class HouseController : Controller
 	{
@@ -29,7 +29,7 @@ namespace CedarCreek.Controllers
 				{
 					ID = x.ID,
 					HouseName = x.HouseName,
-					HouseEffect = (Cat.Models.Houses.HouseEffect)x.HouseEffect,
+					HouseEffect = (Models.Houses.HouseEffect)x.HouseEffect,
 					HouseLevelRequirement = x.HouseLevelRequirement,
 				});
 			return View(resultingInventory);

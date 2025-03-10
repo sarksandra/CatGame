@@ -2,7 +2,7 @@
 {
     public enum KittyType
     {
-        Blight, Nurse, Survivor, Hillbilly
+        Pink, Blue, Purple
     }
     public enum KittyStatus
     {

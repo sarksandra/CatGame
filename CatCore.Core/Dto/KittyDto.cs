@@ -10,7 +10,7 @@ namespace Cat.Core.Dto
 {
 		public enum KittyType
 		{
-			Blight, Nurse, Survivor, Hillbilly
+			Pink, Blue, Pruple
 		}
 		public enum KittyStatus
 		{
