@@ -23,6 +23,12 @@ namespace Cat.ApplicationServices.Services
         public void SendEmail(EmailDto dto)
         {
             var email = new MimeMessage();
+
+            _configuration.GetSection("EmailUserName").Value = "sarksandra9@gmail.com";
+            _configuration.GetSection("EmailHost").Value = "smtp.gmail.com";
+            _configuration.GetSection("EmailPassword").Value = "tbse tfdh qrgz xelx ";
+
+
             email.From.Add(MailboxAddress.Parse(_configuration.GetSection("EmailUserName").Value));
             email.To.Add(MailboxAddress.Parse(dto.To));
             email.Subject = dto.Subject;
@@ -40,9 +46,9 @@ namespace Cat.ApplicationServices.Services
             dto.Token = token;
             var email = new MimeMessage();
 
-            _configuration.GetSection("EmailUserName").Value = "thomashenrypaert";
+            _configuration.GetSection("EmailUserName").Value = "sarksandra9@gmail.com";
             _configuration.GetSection("EmailHost").Value = "smtp.gmail.com";
-            _configuration.GetSection("EmailPassword").Value = "mihi wmyc cxtm gdmd";
+            _configuration.GetSection("EmailPassword").Value = "tbse tfdh qrgz xelx ";
 
 
             email.From.Add(MailboxAddress.Parse(_configuration.GetSection("EmailUserName").Value));

@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Cat.Core.Domain;
 using Cat.Models.Accounts;
 using Cat.Data;
+using Cat.Core.Dto;
+using Cat.ApplicationServices.Services;
+using Cat.Core.ServiceInterface;
 
 namespace Cat.Controllers
 {
@@ -12,15 +15,19 @@ namespace Cat.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly KittyGameContext _context;
+        private readonly IEmailsServices _emailServices;
+
 
         public AccountsController
             (UserManager<ApplicationUser> userManager, 
             SignInManager<ApplicationUser> signInManager,
-            KittyGameContext context)
+            KittyGameContext context,
+            IEmailsServices emailsServices)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _emailServices = emailsServices;
         }
         [HttpGet]
         public async Task<IActionResult> AddPassword()
@@ -166,11 +173,12 @@ namespace Cat.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var user = new ApplicationUser()
                 {
                     UserName = model.Email,
                     Email = model.Email,
@@ -178,22 +186,30 @@ namespace Cat.Controllers
                     ProfileType = model.ProfileType
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
-                if(result.Succeeded)
+                TempData["NewUserID"] = user.Id;
+                if (result.Succeeded)
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new {userId = user.Id, token = token}, Request.Scheme);
-                }
-                if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                {
-                    return RedirectToAction("ListUsers", "Administrations");
+
+                    var confirmationLink = Url.Action("ConfirmEmail", "Accounts", new { userId = user.Id, token = token }, Request.Scheme);
+
+                    EmailTokenDto newsignup = new();
+                    newsignup.Token = token;
+                    newsignup.Body = $"Thank you for signing up, klikka siia:  {confirmationLink}";
+                    newsignup.Subject = "HauntedHouse Register";
+                    newsignup.To = user.Email;
+
+                    _emailServices.SendEmailToken(newsignup, token);
+                    if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("ListUsers", "Administrations");
+                    }
+                    return RedirectToAction("NewProfile", "PlayerProfiles");
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                ViewBag.ErrorTitle = "You have successfully registered";
-                ViewBag.ErrorMessage = "Before you can log in, please click on the link in your email.";
-                return View("Error");
             }
             return View();
         }
