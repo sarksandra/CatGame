@@ -5,14 +5,14 @@
 }
 <div><a asp-action="Create" asp-controller="foods" class="btn btn-primary">Kittys foods</a></div>
 
-<div class="h1">Existing realms:</div>
+<div class="h1">Existing Food:</div>
 <form method="post">
 	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Name</th>
-				<th scope="col">Effect</th>
+				<th scope="col">Type</th>
 				<th scope="col">LevelRequirement</th>
 				<th scope="col">Admin actions</th>
 			</tr>
@@ -29,7 +29,7 @@
 					<td>
 						<a asp-action="details" asp-controller="Foods" asp-route-id="@realm.ID" class="btn btn-info">Details</a>
 						<br />
-						<a asp-action="update" asp-controller="Foods" asp-route-id="@realm.ID" class="btn btn-info">Configure</a>
+						<a asp-action="update" asp-controller="Foods" asp-route-id="@realm.ID" class="btn btn-info">Update</a>
 						<br />
 						<a asp-action="delete" asp-controller="Foods" asp-route-id="@realm.ID" class="btn btn-info">Delete</a>
 					</td>

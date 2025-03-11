@@ -48,7 +48,7 @@ namespace Cat.Controllers
 			var dto = new FoodDto
 			{
 				FoodName = vm.FoodName,
-				Foodtype = (Cat.Core.Dto.Foodtype)vm.Foodtype,
+				Foodtype = (Core.Dto.Foodtype)vm.Foodtype,
 				FoodLevelRequirement = vm.FoodLevelRequirement,
 				Files = vm.Files,
 				Image = vm.Image.Select(x => new FileToDatabaseDto
@@ -56,7 +56,7 @@ namespace Cat.Controllers
 					ID = x.ImageID,
 					ImageData = x.ImageData,
 					ImageTitle = x.ImageTitle,
-					HouseID = x.FoodID,
+					FoodID = x.FoodID,
 				}).ToArray()
 			};
 			var result = await _foodsServices.Create(dto);
@@ -105,7 +105,7 @@ namespace Cat.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public async Task<IActionResult> RemoveImage(KittyImageViewModel vm)
+        public async Task<IActionResult> RemoveImage(FoodsImageViewModel vm)
         {
             var dto = new FileToDatabaseDto()
             {
@@ -115,5 +115,35 @@ namespace Cat.Controllers
             if (image == null) { return RedirectToAction("Index"); }
             return RedirectToAction("Index");
         }
+		[HttpGet]
+		public async Task<IActionResult> Details(Guid id)
+		{
+            var kitty = await _foodsServices.DetailsAsync(id);
+
+            if (kitty == null)
+            {
+                return NotFound();
+            }
+            var images = await _context.FilesToDatabase
+                .Where(c => c.FoodID == id)
+                .Select(y => new FoodsImageViewModel
+                {
+                    FoodID = y.ID,
+                    ImageID = y.ID,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64{0}", Convert.ToBase64String(y.ImageData))
+                }).ToArrayAsync();
+
+            var vm = new FoodsDetailsViewModel();
+            vm.ID = kitty.ID;
+            vm.FoodName = kitty.FoodName;
+            vm.FoodLevelRequirement = 100;
+            vm.Foodtype = (Models.Foods.Foodtype)kitty.Foodtype;
+            vm.Image.AddRange(images);
+
+            return View(vm);
+        }
     }
+    
 }

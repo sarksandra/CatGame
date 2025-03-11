@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Cat.Models.Foods.FoodsDetailsViewModel
+
+<h1>@Html.DisplayFor(model => model.FoodName)</h1>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="row">
+        <div class="form-group-row">
+            <label asp-for="ID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.ID)
+        </div>
+        <div class="form-group-row">
+            <label asp-for="FoodName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FoodName)
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Foodtype" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Foodtype)
+        </div>
+
+
+        <div id="imagediv">
+            @foreach (var image in Model.Image)
+            {
+                <partial name="_Images" model="image" />
+            }
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="FoodLevelRequirement" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FoodLevelRequirement)
+        </div>
+
+    </dl>
+
+    <a asp-action="Index" asp-controller="Foods" class="btn btn-secondary">Index</a>
+</div>
