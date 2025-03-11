@@ -1,38 +1,26 @@
-﻿@model Cat.Models.Houses.HouseCreateViewModel
+﻿@model Cat.Models.Foods.FoodsCreateViewModel
 
 <div>
     <form method="post" enctype="multipart/form-data">
-        @*
-        <input asp-for="CreatedAt" type="hidden" />
-        <input asp-for="UpdatedAt" type="hidden" />
-        <input asp-for="CharacterXP" value="0" type="hidden" />
-        <input asp-for="CharacterLevel" value="0" type="hidden" />
-        <input asp-for="CharacterXPNextLevel" value="100" type="hidden" />
-        <input asp-for="CharacterMaxHealth" value="100" type="hidden" />
-        <input asp-for="CharacterHealth" value="100" type="hidden" />
-        <input asp-for="@Model.CharacterStatus" value="Healthy" type="hidden" />
-        <input asp-for="CharacterCreationTime" type="hidden" />
-        *@
-
 
         <div class="form-group-row">
-            <label asp-for="HouseName" class="col-sm-2 col-form-label"></label>
+            <label asp-for="FoodName" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="HouseName" class="form-control" />
+                <input asp-for="FoodName" class="form-control" />
             </div>
         </div>
 
         <div class="form-group-row">
-            <label asp-for="HouseEffect" class="col-sm-2 col-form-label"></label>
+            <label asp-for="Foodtype" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="HouseEffect" class="form-control" />
+                <input asp-for="Foodtype" class="form-control" />
             </div>
         </div>
 
         <div class="form-group-row">
-            <label asp-for="HouseLevelRequirement" class="col-sm-2 col-form-label"></label>
+            <label asp-for="FoodLevelRequirement" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <input asp-for="HouseLevelRequirement" class="form-control" />
+                <input asp-for="FoodLevelRequirement" class="form-control" />
             </div>
         </div>
         <div class="form-group-row">
@@ -46,8 +34,8 @@
                 </div>
             </div>
         </div>
-        <input asp-action="create" asp-controller="Houses" type="submit"
-               class="btn btn-primary" value="Pick House"></input>
+        <input asp-action="create" asp-controller="Foods" type="submit"
+               class="btn btn-primary" value="Foods"></input>
 
         <a asp-action="index" class="btn btn-primary">Cancel</a>
 

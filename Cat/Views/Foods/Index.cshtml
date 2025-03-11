@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Cat.Models.Houses.FoodsListIndexViewModel>
+
+@{
+	int rowNumber = 1;
+}
+<div><a asp-action="Create" asp-controller="foods" class="btn btn-primary">Kittys foods</a></div>
+
+<div class="h1">Existing realms:</div>
+<form method="post">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Effect</th>
+				<th scope="col">LevelRequirement</th>
+				<th scope="col">Admin actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var realm in Model)
+			{
+				<tr>
+					@*Once images have been implemented add the image here too*@
+					<td>@rowNumber</td>
+					<td>@realm.FoodName</td>
+					<td>@realm.Foodtype</td>
+					<td>@realm.FoodLevelRequirement</td>
+					<td>
+						<a asp-action="details" asp-controller="Foods" asp-route-id="@realm.ID" class="btn btn-info">Details</a>
+						<br />
+						<a asp-action="update" asp-controller="Foods" asp-route-id="@realm.ID" class="btn btn-info">Configure</a>
+						<br />
+						<a asp-action="delete" asp-controller="Foods" asp-route-id="@realm.ID" class="btn btn-info">Delete</a>
+					</td>
+				</tr>
+				rowNumber++;
+			}
+		</tbody>
+	</table>
+</form>

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Cat.Core.ServiceInterface
 {
-	public interface IHousesServices
+	public interface IFoodsServices
 	{
-		Task<House> Create(HouseDto dto);
-		Task<House> DetailsAsync(Guid id);
+		Task<Food> Create(FoodDto dto);
+		Task<Food> DetailsAsync(Guid id);
 	}
 }

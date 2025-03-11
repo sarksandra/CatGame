@@ -18,7 +18,7 @@ builder.Services.AddScoped<IFileServices, FileServices>();
 builder.Services.AddScoped<IAccountsServices, AccountsServices>();
 builder.Services.AddScoped<IEmailsServices, EmailsServices>();
 builder.Services.AddScoped<IPlayerProfilesServices, PlayerProfilesServices>();
-builder.Services.AddScoped<IHousesServices, HousesServices>();
+builder.Services.AddScoped<IFoodsServices, FoodServices>();
 builder.Services.AddScoped<PlayerProfile>();
 builder.Services.AddDbContext<KittyGameContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

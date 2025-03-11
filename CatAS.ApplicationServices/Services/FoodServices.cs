@@ -11,34 +11,34 @@ using System.Threading.Tasks;
 
 namespace Cat.ApplicationServices.Services
 {
-	public class HousesServices : IHousesServices
+	public class FoodServices : IFoodsServices
 	{
 		private readonly KittyGameContext _context;
-		private readonly IHousesServices _realmsServices;
+		private readonly IFoodsServices _realmsServices;
 		private readonly IFileServices _fileServices;
 
-		public HousesServices(KittyGameContext context, IFileServices fileServices)
+		public FoodServices(KittyGameContext context, IFileServices fileServices)
 		{
 			_context = context;
 			_fileServices = fileServices;
 		}
 
-		public async Task<House> DetailsAsync(Guid id)
+		public async Task<Food> DetailsAsync(Guid id)
 		{
-			var result = await _context.Houses
+			var result = await _context.Foods
 				.FirstOrDefaultAsync(x => x.ID == id);
 			return result;
 		}
-		public async Task<House> Create (HouseDto dto)
+		public async Task<Food> Create (FoodDto dto)
 		{
-			House realm = new();
+			Food realm = new();
 
 			realm.ID = Guid.NewGuid();
-			realm.HouseName = dto.HouseName;
-			realm.HouseEffect = (Core.Domain.HouseEffect)dto.HouseEffect;
-			realm.HouseLevelRequirement = dto.HouseLevelRequirement;
+			realm.FoodName = dto.FoodName;
+			realm.Foodtype = (Core.Domain.Foodtype)dto.Foodtype;
+			realm.FoodLevelRequirement = dto.FoodLevelRequirement;
 
-			await _context.Houses.AddAsync(realm);
+			await _context.Foods.AddAsync(realm);
 			await _context.SaveChangesAsync();
 
 			return realm;
