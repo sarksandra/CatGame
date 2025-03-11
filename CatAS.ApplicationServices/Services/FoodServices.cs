@@ -44,9 +44,23 @@ namespace Cat.ApplicationServices.Services
 			return realm;
 		}
 
-        public Task<Food> Update(FoodDto dto)
+        public async Task<Food> Update(FoodDto dto)
         {
-            throw new NotImplementedException();
+            Food character = new Food();
+
+            //Set by service
+            character.ID = dto.ID;
+            character.FoodName = dto.FoodName;
+            character.FoodLevelRequirement = 100;
+            character.Foodtype = (Core.Domain.Foodtype)dto.Foodtype;
+            character.CreatedAt = DateTime.Now;
+
+            //Set by user
+            character.Foodtype = (Core.Domain.Foodtype)dto.Foodtype;
+            character.FoodName = dto.FoodName;
+
+
+            return character;
         }
 
         public async Task<Food> Delete(Guid id)

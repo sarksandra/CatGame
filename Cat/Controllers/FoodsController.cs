@@ -144,6 +144,60 @@ namespace Cat.Controllers
 
             return View(vm);
         }
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            if (id == null) { return NotFound(); }
+
+            var kitty = await _foodsServices.DetailsAsync(id);
+
+            if (id == null) { return NotFound(); }
+
+            var images = await _context.FilesToDatabase
+                .Where(x => x.KittyID == id)
+                .Select(y => new FoodsImageViewModel
+                {
+                    FoodID = y.ID,
+                    ImageID = y.ID,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64{0}", Convert.ToBase64String(y.ImageData))
+                }).ToArrayAsync();
+
+            var vm = new FoodsCreateViewModel();
+            vm.FoodName = vm.FoodName;
+            vm.FoodLevelRequirement = 100;
+            vm.Foodtype = (Models.Foods.Foodtype)kitty.Foodtype;
+
+            return View("Update", vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(FoodsCreateViewModel vm)
+        {
+            var dto = new FoodDto()
+            {
+                ID = (Guid)vm.ID,
+                FoodLevelRequirement = 100,
+                Foodtype = (Core.Dto.Foodtype)vm.Foodtype,
+                FoodName = vm.FoodName,
+                Files = vm.Files,
+                Image = vm.Image.Select(x => new FileToDatabaseDto
+                {
+                    ID = x.ImageID,
+                    ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
+                    KittyID = x.FoodID,
+                }).ToArray(),
+            };
+            var result = await _foodsServices.Update(dto);
+
+            if (result == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index", vm);
+        }
     }
     
+
 }
