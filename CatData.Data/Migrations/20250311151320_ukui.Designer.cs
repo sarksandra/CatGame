@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cat.Data.Migrations
 {
     [DbContext(typeof(KittyGameContext))]
-    [Migration("20250311145232_gfbg")]
-    partial class gfbg
+    [Migration("20250311151320_ukui")]
+    partial class ukui
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

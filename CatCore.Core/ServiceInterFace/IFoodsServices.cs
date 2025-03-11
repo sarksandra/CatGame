@@ -11,6 +11,9 @@ namespace Cat.Core.ServiceInterface
 	public interface IFoodsServices
 	{
 		Task<Food> Create(FoodDto dto);
+		Task<Food> Update(FoodDto dto);
+		Task<Food> Delete(Guid id);
 		Task<Food> DetailsAsync(Guid id);
-	}
+        
+    }
 }

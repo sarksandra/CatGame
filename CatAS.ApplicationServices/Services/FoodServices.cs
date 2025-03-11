@@ -14,7 +14,7 @@ namespace Cat.ApplicationServices.Services
 	public class FoodServices : IFoodsServices
 	{
 		private readonly KittyGameContext _context;
-		private readonly IFoodsServices _realmsServices;
+		private readonly IFoodsServices _foodsServices;
 		private readonly IFileServices _fileServices;
 
 		public FoodServices(KittyGameContext context, IFileServices fileServices)
@@ -43,5 +43,20 @@ namespace Cat.ApplicationServices.Services
 
 			return realm;
 		}
-	}
+
+        public Task<Food> Update(FoodDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Food> Delete(Guid id)
+        {
+            var result = await _context.Foods
+               .FirstOrDefaultAsync(x => x.ID == id);
+            _context.Foods.Remove(result);
+            await _context.SaveChangesAsync();
+
+            return result;
+        }
+    }
 }

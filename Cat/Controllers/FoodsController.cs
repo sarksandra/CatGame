@@ -1,7 +1,9 @@
-﻿using Cat.Core.Dto;
+﻿using Cat.ApplicationServices.Services;
+using Cat.Core.Dto;
 using Cat.Core.ServiceInterface;
 using Cat.Data;
-using Cat.Models.Houses;
+using Cat.Models.Foods;
+using Cat.Models.Kittys;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +15,10 @@ namespace Cat.Controllers
 		private readonly IFoodsServices _foodsServices;
 		private readonly IFileServices _fileServices;
 
-		public FoodsController(KittyGameContext context, IFoodsServices realmsServices, IFileServices fileServices)
+		public FoodsController(KittyGameContext context, IFoodsServices foodsServices, IFileServices fileServices)
 		{
 			_context = context;
-			_foodsServices = realmsServices;
+			_foodsServices = foodsServices;
 			_fileServices = fileServices;
 		}
 
@@ -29,7 +31,7 @@ namespace Cat.Controllers
 				{
 					ID = x.ID,
 					FoodName = x.FoodName,
-					Foodtype = (Models.Houses.Foodtype)x.Foodtype,
+					Foodtype = (Models.Foods.Foodtype)x.Foodtype,
 					FoodLevelRequirement = x.FoodLevelRequirement,
 				});
 			return View(resultingInventory);
@@ -64,5 +66,54 @@ namespace Cat.Controllers
 			}
 			return RedirectToAction("Index", vm);
 		}
-	}
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (id == null) { return NotFound(); }
+
+            var kitty = await _foodsServices.DetailsAsync(id);
+
+            if (id == null) { return NotFound(); };
+
+            var images = await _context.FilesToDatabase
+                .Where(x => x.KittyID == id)
+                .Select(y => new FoodsImageViewModel
+                {
+                    FoodID = y.ID,
+                    ImageID = y.ID,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+                }).ToArrayAsync();
+            var vm = new FoodsDeleteViewModel();
+
+            vm.ID = kitty.ID;
+            vm.FoodName = kitty.FoodName;
+            vm.FoodLevelRequirement = 100;
+            vm.Foodtype = (Models.Foods.Foodtype)kitty.Foodtype;
+            vm.Image.AddRange(images);
+
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmation(Guid id)
+        {
+            var ToDelete = await _foodsServices.Delete(id);
+
+            if (ToDelete == null) { return RedirectToAction("Index"); }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveImage(KittyImageViewModel vm)
+        {
+            var dto = new FileToDatabaseDto()
+            {
+                ID = vm.ImageID
+            };
+            var image = await _fileServices.RemoveImageFromDatabase(dto);
+            if (image == null) { return RedirectToAction("Index"); }
+            return RedirectToAction("Index");
+        }
+    }
 }

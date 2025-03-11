@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cat.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class cat1 : Migration
+    public partial class ukui : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,18 +67,18 @@ namespace Cat.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Houses",
+                name: "Foods",
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HouseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HouseEffect = table.Column<int>(type: "int", nullable: false),
-                    HouseLevelRequirement = table.Column<int>(type: "int", nullable: false),
+                    FoodName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Foodtype = table.Column<int>(type: "int", nullable: false),
+                    FoodLevelRequirement = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Houses", x => x.ID);
+                    table.PrimaryKey("PK_Foods", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -304,7 +304,7 @@ namespace Cat.Data.Migrations
                 name: "FilesToDatabase");
 
             migrationBuilder.DropTable(
-                name: "Houses");
+                name: "Foods");
 
             migrationBuilder.DropTable(
                 name: "Kittys");
