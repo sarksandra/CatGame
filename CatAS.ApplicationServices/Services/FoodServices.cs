@@ -38,6 +38,11 @@ namespace Cat.ApplicationServices.Services
 			realm.Foodtype = (Core.Domain.Foodtype)dto.Foodtype;
 			realm.FoodLevelRequirement = dto.FoodLevelRequirement;
 
+			if(dto.Files != null)
+			{
+				_fileServices.UploadFilesToDatabase(dto, realm);
+			}
+
 			await _context.Foods.AddAsync(realm);
 			await _context.SaveChangesAsync();
 

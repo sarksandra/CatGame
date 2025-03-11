@@ -3,6 +3,7 @@ using Cat.Core.Domain;
 using Cat.Core.Dto;
 using Cat.Core.ServiceInterface;
 using Cat.Data;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -42,6 +43,27 @@ namespace Cat.ApplicationServices.Services
                             KittyID = realm.ID
                         };
                         image.CopyTo( target );
+                        files.ImageData = target.ToArray();
+                        _context.FilesToDatabase.Add(files);
+                    }
+                }
+            }
+        }
+        public void UploadFilesToDatabase(FoodDto dto, Food realm)
+        {
+            if (dto.Files != null && dto.Files.Count > 0)
+            {
+                foreach (var image in dto.Files)
+                {
+                    using (var target = new MemoryStream())
+                    {
+                        FileToDatabase files = new FileToDatabase()
+                        {
+                            ID = Guid.NewGuid(),
+                            ImageTitle = image.FileName,
+                            KittyID = realm.ID
+                        };
+                        image.CopyTo(target);
                         files.ImageData = target.ToArray();
                         _context.FilesToDatabase.Add(files);
                     }

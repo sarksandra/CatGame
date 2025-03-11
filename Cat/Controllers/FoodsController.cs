@@ -118,24 +118,24 @@ namespace Cat.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details(Guid id)
 		{
+            if (id == null) { return NotFound(); }
+
             var kitty = await _foodsServices.DetailsAsync(id);
 
-            if (kitty == null)
-            {
-                return NotFound();
-            }
+            if (id == null) { return NotFound(); };
+
             var images = await _context.FilesToDatabase
-                .Where(c => c.FoodID == id)
+                .Where(x => x.KittyID == id)
                 .Select(y => new FoodsImageViewModel
                 {
                     FoodID = y.ID,
                     ImageID = y.ID,
                     ImageData = y.ImageData,
                     ImageTitle = y.ImageTitle,
-                    Image = string.Format("data:image/gif;base64{0}", Convert.ToBase64String(y.ImageData))
+                    Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
                 }).ToArrayAsync();
-
             var vm = new FoodsDetailsViewModel();
+
             vm.ID = kitty.ID;
             vm.FoodName = kitty.FoodName;
             vm.FoodLevelRequirement = 100;

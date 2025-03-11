@@ -20,17 +20,16 @@
             @Html.DisplayFor(model => model.Foodtype)
         </div>
 
+        <div class="form-group row">
+            <label asp-for="FoodLevelRequirement" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FoodLevelRequirement)
+        </div>
 
         <div id="imagediv">
             @foreach (var image in Model.Image)
             {
                 <partial name="_Images" model="image" />
             }
-        </div>
-
-        <div class="form-group row">
-            <label asp-for="FoodLevelRequirement" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.FoodLevelRequirement)
         </div>
 
     </dl>

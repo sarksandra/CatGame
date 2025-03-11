@@ -7,5 +7,6 @@ namespace Cat.Core.ServiceInterface
     {
         void UploadFilesToDatabase(KittyDto dto, Kitty character);
         Task<FileToDatabase> RemoveImageFromDatabase(FileToDatabaseDto dto);
+        void UploadFilesToDatabase(FoodDto dto, Food realm);
     }
 }
